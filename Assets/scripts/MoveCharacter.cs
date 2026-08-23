@@ -6,10 +6,14 @@ public class MoveCharacter : MonoBehaviour
 {
     public InputActionAsset ActionInput;
 
-    InputAction jumpAction;
+    private InputAction jumpAction;
+    private InputAction moveAction;
+    
 
     [SerializeField] private float walkSpeed = 5f;
+    
     private Rigidbody rb;
+    private Vector3 moveAmt;
 
     private void OnEnable()
     {
@@ -24,11 +28,13 @@ public class MoveCharacter : MonoBehaviour
     private void Awake()
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
+        moveAction = InputSystem.actions.FindAction("Move");
         rb = GetComponent<Rigidbody>();
     }
 
     private void Update()
     {
+        moveAmt = moveAction.ReadValue<Vector3>();
         if (jumpAction.WasPressedThisFrame())
         {
             Jump();
@@ -39,5 +45,7 @@ public class MoveCharacter : MonoBehaviour
     {
         rb.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.down, ForceMode.Impulse);
     }
+
+    
 
 }
