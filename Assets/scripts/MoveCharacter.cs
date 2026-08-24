@@ -15,6 +15,7 @@ public class MoveCharacter : MonoBehaviour
     
     private Rigidbody rb;
     private Vector3 moveAmt;
+    private bool isGrounded;
 
     private void OnEnable()
     {
@@ -36,7 +37,7 @@ public class MoveCharacter : MonoBehaviour
     private void Update()
     {
         moveAmt = moveAction.ReadValue<Vector2>();
-        if (jumpAction.WasPressedThisFrame())
+        if (jumpAction.WasPressedThisFrame() && isGrounded)
         {
             Jump();
         }
@@ -54,6 +55,22 @@ public class MoveCharacter : MonoBehaviour
     private void Jump()
     {
         rb.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Ground"))
+        {
+            isGrounded = false;
+        }
     }
 
 
