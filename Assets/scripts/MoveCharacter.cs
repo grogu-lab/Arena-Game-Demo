@@ -10,7 +10,8 @@ public class MoveCharacter : MonoBehaviour
     private InputAction moveAction;
     
 
-    [SerializeField] private float walkSpeed = 5f;
+    [SerializeField] private float moveSpeed = 5f;
+    [SerializeField] private float jumpSpeed = 2f;
     
     private Rigidbody rb;
     private Vector3 moveAmt;
@@ -34,17 +35,27 @@ public class MoveCharacter : MonoBehaviour
 
     private void Update()
     {
-        moveAmt = moveAction.ReadValue<Vector3>();
+        moveAmt = moveAction.ReadValue<Vector2>();
         if (jumpAction.WasPressedThisFrame())
         {
             Jump();
         }
-    }
+        
 
+    }
+    // procedures for movement and general mechanics
+    
+    
+    private void FixedUpdate()
+    {
+        Vector3 move = new Vector3(moveAmt.x, 0f, moveAmt.y);
+        rb.MovePosition(rb.position + move * Time.deltaTime * moveSpeed);
+    }
     private void Jump()
     {
-        rb.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.down, ForceMode.Impulse);
+        rb.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
     }
+
 
     
 
