@@ -54,7 +54,7 @@ public class MoveCharacter : MonoBehaviour
     }
     private void Jump()
     {
-        rb.AddForceAtPosition(new Vector3(0, 5f, 0), Vector3.up, ForceMode.Impulse);
+        rb.AddForceAtPosition(new Vector3(0, jumpSpeed, 0), Vector3.up, ForceMode.Impulse);
     }
 
     private void OnCollisionEnter(Collision collision)
