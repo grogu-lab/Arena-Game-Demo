@@ -66,23 +66,21 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         if (itemQty != 0)
         {
             itemQty -= amountToRemove;
-            UpdateSlot();
-            return itemQty;
-        }
-        
-        else if (itemQty <= 0)
-        {
-            ClearSlot();
-            return itemQty;
+
+            if (itemQty <= 0)
+            {
+                ClearSlot();
+            }
+            else
+            {
+                UpdateSlot();
+            }
         }
 
-        else
-        {
-            return itemQty;
-        }
+        return itemQty;
     }
 
-    private void ClearSlot()
+    public void ClearSlot()
     {
         heldItem = null;
         itemQty = 0;
