@@ -8,7 +8,6 @@ using UnityEngine.UI;
 public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool hovering;
-
     private WeaponData heldItem;
     private int itemQty;
     private Image iconImage;
@@ -70,10 +69,15 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             UpdateSlot();
             return itemQty;
         }
-        else
+        
+        else if (itemQty <= 0)
         {
             ClearSlot();
-            UpdateSlot();
+            return itemQty;
+        }
+
+        else
+        {
             return itemQty;
         }
     }
