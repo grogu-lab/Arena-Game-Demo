@@ -14,10 +14,19 @@ public class Inventory : MonoBehaviour
 
     public InputActionAsset controls;
     private InputAction interactControl;
+    public InputAction inventoryDisplay;
+    public bool isVisible = false;
+
+    [SerializeField] private CanvasGroup panelCanvasGroup;
+    
+    
+
+
 
     private void OnEnable()
     {
         controls?.FindActionMap("Player")?.Enable();
+        
     }
 
     private void OnDisable()
@@ -34,6 +43,16 @@ public class Inventory : MonoBehaviour
         allSlots.AddRange(hotbarSlots);
 
         interactControl = InputSystem.actions.FindAction("Interact");
+        inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
+
+        panelCanvasGroup = GetComponent<CanvasGroup>();
+    }
+
+    private void Start()
+    {
+        panelCanvasGroup.alpha = 0f;
+        panelCanvasGroup.interactable = isVisible;
+        panelCanvasGroup.blocksRaycasts = isVisible;
     }
 
     private void Update()
@@ -43,6 +62,13 @@ public class Inventory : MonoBehaviour
         {
             AddItem(pickaxeItem, 1);
         }
+
+        if (inventoryDisplay.WasPressedThisFrame())
+        {
+            isVisible = true;
+            ToggleInventory();
+        }
+
     }
 
     public void AddItem(WeaponData weapon, int amount)
@@ -96,5 +122,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    
+     public void ToggleInventory()
+    {
+        if (isVisible == true)
+        {
+            panelCanvasGroup.alpha = 1f;
+            panelCanvasGroup.interactable = isVisible;
+            panelCanvasGroup.blocksRaycasts = isVisible;
+        }
+    }
+
 }
