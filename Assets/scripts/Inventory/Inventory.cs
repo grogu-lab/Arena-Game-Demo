@@ -1,9 +1,9 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-
     public WeaponData pickaxeItem;
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
@@ -12,6 +12,19 @@ public class Inventory : MonoBehaviour
     private List<Slots> hotbarSlots = new List<Slots>();
     private List<Slots> allSlots = new List<Slots>();
 
+    public InputActionAsset controls;
+    private InputAction interactControl;
+
+    private void OnEnable()
+    {
+        controls?.FindActionMap("Player")?.Enable();
+    }
+
+    private void OnDisable()
+    {
+        controls?.FindActionMap("Player")?.Disable();
+    }
+
     private void Awake()
     {
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
@@ -19,11 +32,14 @@ public class Inventory : MonoBehaviour
 
         allSlots.AddRange(inventorySlots);
         allSlots.AddRange(hotbarSlots);
+
+        interactControl = InputSystem.actions.FindAction("Interact");
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+
+        if (interactControl.WasPressedThisFrame())
         {
             AddItem(pickaxeItem, 1);
         }
@@ -42,10 +58,14 @@ public class Inventory : MonoBehaviour
                 if (currentAmount < maxStackSize)
                 {
                     int spaceLeft = maxStackSize - currentAmount;
+
+                    // checks if there's more space than items or more items
+                    // than the number of space available in the inventory
+
                     int amountToAdd = Mathf.Min(remaining, spaceLeft);
 
-                    slot.SetItem(weapon, currentAmount + amount);
-                    remaining -= amount;
+                    slot.SetItem(weapon, currentAmount + amountToAdd);
+                    remaining -= amountToAdd;
 
                     if (remaining <= 0)
                     {
@@ -60,8 +80,8 @@ public class Inventory : MonoBehaviour
             if (!slot.HasItem())
             {
                 int amountToPlace = Mathf.Min(weapon.maxStackSize, remaining);
-                slot.SetItem(weapon, amount);
-                remaining -= amount;
+                slot.SetItem(weapon, amountToPlace);
+                remaining -= amountToPlace;
 
                 if (remaining <= 0)
                 {
