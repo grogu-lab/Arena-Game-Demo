@@ -5,7 +5,6 @@ using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
 {
-    public WeaponData pickaxeItem;
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
     public GameObject container;
@@ -16,11 +15,12 @@ public class Inventory : MonoBehaviour
 
     public InputActionAsset controls;
     private InputAction interactControl;
-    public InputAction inventoryDisplay;
-    
-    
+    private InputAction inventoryDisplay;
 
+    public PickupItem itemPickup;
+    public bool isTriggered = false;
 
+    
 
     private void OnEnable()
     {
@@ -49,16 +49,20 @@ public class Inventory : MonoBehaviour
     private void Update()
     {
 
-        if (interactControl.WasPressedThisFrame())
-        {
-            AddItem(pickaxeItem, 1);
-        }
-
         if (inventoryDisplay.WasPressedThisFrame())
         {
             container.SetActive(!container.activeInHierarchy);
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
+        }
+
+        if (isTriggered == true)
+        {
+            if (interactControl.WasPressedThisFrame())
+            {
+                AddItem(itemPickup.weapon, itemPickup.amount);
+                Destroy(itemPickup.gameObject);
+            }
         }
 
     }
@@ -112,6 +116,17 @@ public class Inventory : MonoBehaviour
         {
             Debug.Log($"Inventory is full, {remaining} of {weapon.itemName}");
         }
+    }
+
+    private void OnTriggerEnter(Collider collider)
+    {
+        collider.TryGetComponent<PickupItem>(out var pickup);
+        isTriggered = true;
+    }
+
+    public void OnTriggerExit(Collider collider)
+    {
+        return;
     }
 
 
