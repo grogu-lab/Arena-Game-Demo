@@ -2097,6 +2097,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pickaxe
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
+      propertyPath: m_TagString
+      value: pickup
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2104,6 +2108,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1919307769}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1919307773}
   m_SourcePrefab: {fileID: 100100000, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
 --- !u!1 &1031442918
 GameObject:
@@ -3111,21 +3118,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0661a76c879f8c41ada22c7a322d8e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
-  pickaxeItem: {fileID: 11400000, guid: 17e65cbc357f0e34a9209a90df9f67a3, type: 2}
   inventorySlotParent: {fileID: 787361423}
   hotbarObject: {fileID: 847086129}
   container: {fileID: 246341976}
   controls: {fileID: 0}
-  inventoryDisplay:
-    m_Name: Inventory Display
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 153d3af8-ada7-4ff0-b796-a3fb5d065e46
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
-    m_Priority: 0
+  itemPickup: {fileID: 0}
+  isTriggered: 0
 --- !u!222 &1739764942
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3351,6 +3349,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.9999999, y: 10.572305, z: 1.9999995}
   m_Center: {x: 0, y: 3.7652617, z: -2.67538e-14}
+--- !u!114 &1919307773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1919307764}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc14bd64d49310d439239df666a0942b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponIdle
+  rotationIdle: 0.1
 --- !u!1 &1995150054 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 7186082106940454892, guid: 63cf2dfaf270ca14c8514fc3cb0e4aa9, type: 3}
