@@ -61,6 +61,7 @@ public class Inventory : MonoBehaviour
             if (interactControl.WasPressedThisFrame())
             {
                 AddItem(itemPickup.weapon, itemPickup.amount);
+                Destroy(itemPickup.gameObject);
                 isTriggered = false;
                 itemPickup = null;
             }
