@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 using System.Collections.Generic;
 
 public class Inventory : MonoBehaviour
@@ -7,6 +8,7 @@ public class Inventory : MonoBehaviour
     public WeaponData pickaxeItem;
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
+    public GameObject container;
 
     private List<Slots> inventorySlots = new List<Slots>();
     private List<Slots> hotbarSlots = new List<Slots>();
@@ -15,9 +17,6 @@ public class Inventory : MonoBehaviour
     public InputActionAsset controls;
     private InputAction interactControl;
     public InputAction inventoryDisplay;
-    public bool isVisible = false;
-
-    [SerializeField] private CanvasGroup panelCanvasGroup;
     
     
 
@@ -44,16 +43,8 @@ public class Inventory : MonoBehaviour
 
         interactControl = InputSystem.actions.FindAction("Interact");
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
-
-        panelCanvasGroup = GetComponent<CanvasGroup>();
     }
 
-    private void Start()
-    {
-        panelCanvasGroup.alpha = 0f;
-        panelCanvasGroup.interactable = isVisible;
-        panelCanvasGroup.blocksRaycasts = isVisible;
-    }
 
     private void Update()
     {
@@ -65,8 +56,9 @@ public class Inventory : MonoBehaviour
 
         if (inventoryDisplay.WasPressedThisFrame())
         {
-            isVisible = true;
-            ToggleInventory();
+            container.SetActive(!container.activeInHierarchy);
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = !Cursor.visible;
         }
 
     }
@@ -122,14 +114,5 @@ public class Inventory : MonoBehaviour
         }
     }
 
-     public void ToggleInventory()
-    {
-        if (isVisible == true)
-        {
-            panelCanvasGroup.alpha = 1f;
-            panelCanvasGroup.interactable = isVisible;
-            panelCanvasGroup.blocksRaycasts = isVisible;
-        }
-    }
 
 }
