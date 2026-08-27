@@ -61,7 +61,8 @@ public class Inventory : MonoBehaviour
             if (interactControl.WasPressedThisFrame())
             {
                 AddItem(itemPickup.weapon, itemPickup.amount);
-                Destroy(itemPickup.gameObject);
+                isTriggered = false;
+                itemPickup = null;
             }
         }
 
@@ -118,15 +119,19 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider collider)
+    private void OnTriggerEnter(Collider other)
     {
-        collider.TryGetComponent<PickupItem>(out var pickup);
-        isTriggered = true;
+        if(other.TryGetComponent<PickupItem>(out var pickup) == true)
+        {
+            itemPickup = pickup;
+            isTriggered = true;
+        }
+        
     }
 
-    public void OnTriggerExit(Collider collider)
+    public void OnTriggerExit(Collider other)
     {
-        return;
+        isTriggered = false;
     }
 
 
