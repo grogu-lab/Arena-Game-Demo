@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: pickaxe1
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   itemName: pickaxe
-  description: as it says
   icon: {fileID: 0}
   itemPrefab: {fileID: 0}
   handItemPrefab: {fileID: 0}
   maxStackSize: 0
+  model: {fileID: 919132149155446097, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
