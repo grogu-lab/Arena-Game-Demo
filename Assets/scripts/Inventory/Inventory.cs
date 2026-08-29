@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
 
     public PickupItem itemPickup;
-    public bool isTriggered = false;
+    public InteractIndicator indicator; 
 
     
 
@@ -43,6 +43,8 @@ public class Inventory : MonoBehaviour
 
         interactControl = InputSystem.actions.FindAction("Interact");
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
+
+        container.SetActive(false);
     }
 
 
@@ -56,13 +58,11 @@ public class Inventory : MonoBehaviour
             Cursor.visible = !Cursor.visible;
         }
 
-        if (isTriggered == true)
+        if (indicator.inVicinity == true)
         {
             if (interactControl.WasPressedThisFrame())
             {
                 AddItem(itemPickup.weapon, itemPickup.amount);
-                Destroy(itemPickup.gameObject);
-                isTriggered = false;
                 itemPickup = null;
             }
         }
@@ -120,20 +120,6 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if(other.TryGetComponent<PickupItem>(out var pickup) == true)
-        {
-            itemPickup = pickup;
-            isTriggered = true;
-        }
-        
-    }
-
-    public void OnTriggerExit(Collider other)
-    {
-        isTriggered = false;
-    }
 
 
 }
