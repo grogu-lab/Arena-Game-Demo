@@ -4,6 +4,7 @@ using UnityEngine;
 public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
+    public bool inVicinity = false;
     
     private void Awake()
     {
@@ -12,18 +13,20 @@ public class InteractIndicator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("pickup"))
+        if (other.CompareTag("Item"))
         {
             container.SetActive(true);
+            inVicinity = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
 
-        if (other.CompareTag("pickup"))
+        if (other.CompareTag("Item"))
         {
             container.SetActive(false);
+            inVicinity = false;
         }
     }
 }
