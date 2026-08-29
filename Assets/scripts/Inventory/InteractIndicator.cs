@@ -5,11 +5,14 @@ public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     public PickupItem currentItem;
+    public bool isDestroyed = false;
+
     
     private void Awake()
     {
         container.SetActive(false);
     }
+
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,6 +33,7 @@ public class InteractIndicator : MonoBehaviour
         {
             container.SetActive(false);
             currentItem = null;
+            
         }
     }
 }
