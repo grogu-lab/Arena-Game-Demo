@@ -47,7 +47,7 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
             qtyText.text = itemQty.ToString();
         }
 
-        else
+        if(heldItem == null)
         {
             iconImage.enabled = false;
             qtyText.text = "";
