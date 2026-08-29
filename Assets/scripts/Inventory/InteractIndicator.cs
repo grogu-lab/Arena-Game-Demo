@@ -5,24 +5,25 @@ public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     
-    private void Update()
+    private void Awake()
     {
-        
+        container.SetActive(false);
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("pickup"))
         {
-            container.SetActive(container.activeInHierarchy);
+            container.SetActive(true);
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
+
         if (other.CompareTag("pickup"))
         {
-            container.SetActive(!container.activeInHierarchy);
+            container.SetActive(false);
         }
     }
 }
