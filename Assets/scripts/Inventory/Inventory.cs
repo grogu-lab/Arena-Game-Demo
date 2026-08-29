@@ -16,8 +16,8 @@ public class Inventory : MonoBehaviour
     public InputActionAsset controls;
     private InputAction interactControl;
     private InputAction inventoryDisplay;
-
-    public PickupItem itemPickup;
+    public Material highlightMaterial;
+    private Material originalMaterial;
     public InteractIndicator indicator; 
 
     
@@ -58,14 +58,7 @@ public class Inventory : MonoBehaviour
             Cursor.visible = !Cursor.visible;
         }
 
-        if (indicator.inVicinity == true)
-        {
-            if (interactControl.WasPressedThisFrame())
-            {
-                AddItem(itemPickup.weapon, itemPickup.amount);
-                itemPickup = null;
-            }
-        }
+        Pickup();
 
     }
 
@@ -120,6 +113,13 @@ public class Inventory : MonoBehaviour
         }
     }
 
+    private void Pickup()
+    {
+        if (indicator.currentItem != null && interactControl.WasPressedThisFrame())
+        {
+            AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
+        }
 
+    }
 
 }
