@@ -5,12 +5,17 @@ public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     public PickupItem currentItem;
-    public bool isDestroyed = false;
+
 
     
     private void Awake()
     {
         container.SetActive(false);
+    }
+
+    private void Update()
+    {
+        
     }
 
 
@@ -31,9 +36,14 @@ public class InteractIndicator : MonoBehaviour
 
         if (other.CompareTag("Item"))
         {
-            container.SetActive(false);
-            currentItem = null;
+            ClearIndicator();
             
         }
+    }
+
+    public void ClearIndicator()
+    {
+        container.SetActive(false);
+        currentItem = null;
     }
 }
