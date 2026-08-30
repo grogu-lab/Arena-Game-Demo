@@ -18,6 +18,12 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     {
         iconImage = transform.GetChild(0).GetComponent<Image>();
         qtyText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+        
+    }
+
+    private void Update()
+    {
+        UpdateSlot();
     }
 
     public WeaponData GetItem()
