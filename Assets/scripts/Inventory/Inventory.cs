@@ -20,6 +20,7 @@ public class Inventory : MonoBehaviour
     private Material originalMaterial;
     public InteractIndicator indicator; 
 
+
     
 
     private void OnEnable()
@@ -113,11 +114,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void Pickup()
+    public void Pickup()
     {
         if (indicator.currentItem != null && interactControl.WasPressedThisFrame())
         {
             AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
+            Destroy(indicator.currentItem.gameObject);
+            indicator.ClearIndicator();
+            
         }
 
     }
