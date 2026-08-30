@@ -34,7 +34,7 @@ public class InteractIndicator : MonoBehaviour
     private void OnTriggerExit(Collider other)
     {
 
-        if (other.CompareTag("Item"))
+        if (other.CompareTag("Item") && other.gameObject == currentItem?.gameObject)
         {
             ClearIndicator();
             
