@@ -608,7 +608,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 771247058}
   m_SourcePrefab: {fileID: 100100000, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
 --- !u!224 &235067029 stripped
 RectTransform:
@@ -1096,6 +1099,11 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 591814277}
   m_SourcePrefab: {fileID: 100100000, guid: 63cf2dfaf270ca14c8514fc3cb0e4aa9, type: 3}
+--- !u!1 &382568347 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+  m_PrefabInstance: {fileID: 1518898987}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1541,7 +1549,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractIndicator
   container: {fileID: 777478648}
-  inVicinity: 0
+  currentItem: {fileID: 0}
 --- !u!1 &591814275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7029948723529949830, guid: 63cf2dfaf270ca14c8514fc3cb0e4aa9, type: 3}
@@ -1713,6 +1721,24 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c10e25b91034014aa4b05025e0c278a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
+  hovering: 0
+--- !u!1 &771247055 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+  m_PrefabInstance: {fileID: 235067028}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &771247058
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771247055}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10e25b91034014aa4b05025e0c278a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slots
   hovering: 0
 --- !u!1 &771597985 stripped
 GameObject:
@@ -2151,6 +2177,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
   hovering: 0
+--- !u!1 &953729657 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+  m_PrefabInstance: {fileID: 1169659138}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &996384546
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2431,7 +2462,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1726057250}
   m_SourcePrefab: {fileID: 100100000, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
 --- !u!224 &1142297917 stripped
 RectTransform:
@@ -2656,13 +2690,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1169659142}
   m_SourcePrefab: {fileID: 100100000, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
 --- !u!224 &1169659139 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4205142481401709980, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
   m_PrefabInstance: {fileID: 1169659138}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1169659142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 953729657}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10e25b91034014aa4b05025e0c278a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slots
+  hovering: 0
 --- !u!1001 &1285217537
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3056,13 +3106,29 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1518898991}
   m_SourcePrefab: {fileID: 100100000, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
 --- !u!224 &1518898988 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4205142481401709980, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
   m_PrefabInstance: {fileID: 1518898987}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1518898991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 382568347}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10e25b91034014aa4b05025e0c278a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slots
+  hovering: 0
 --- !u!1001 &1688643948
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3186,6 +3252,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Inventory
   hovering: 0
+--- !u!1 &1726057247 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
+  m_PrefabInstance: {fileID: 1142297916}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1726057250
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1726057247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c10e25b91034014aa4b05025e0c278a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Slots
+  hovering: 0
 --- !u!1 &1739764938
 GameObject:
   m_ObjectHideFlags: 0
@@ -3243,7 +3327,7 @@ MonoBehaviour:
   hotbarObject: {fileID: 847086129}
   container: {fileID: 246341976}
   controls: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  itemPickup: {fileID: 0}
+  highlightMaterial: {fileID: 0}
   indicator: {fileID: 573078568}
 --- !u!222 &1739764942
 CanvasRenderer:
