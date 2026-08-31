@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using TMPro;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -8,16 +9,32 @@ using UnityEngine.UI;
 public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool hovering;
+    public InputActionAsset inputActions;
+    private InputAction selectSlot;
     private WeaponData heldItem;
     private int itemQty;
     private Image iconImage;
     private TextMeshProUGUI qtyText;
+    private Material highlightSlot;
+    private Material originalHighlight;
 
 
+    private void OnEnable()
+    {
+        inputActions.FindActionMap("Player").Enable();
+    }
+
+    private void OnDisable()
+    {
+        inputActions.FindActionMap("Player").Enable();
+    }
     private void Awake()
     {
         iconImage = transform.GetChild(0).GetComponent<Image>();
         qtyText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+
+        selectSlot = InputSystem.actions.FindAction("Select Hotbar");
+
 
         UpdateSlot();
         
@@ -103,5 +120,13 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         hovering = false;
+    }
+
+    public void SelectSlot()
+    {
+        switch (selectSlot.bindings)
+        {
+            
+        }
     }
 }
