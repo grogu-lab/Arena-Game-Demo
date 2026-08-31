@@ -5,19 +5,11 @@ public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     public PickupItem currentItem;
-
-
     
     private void Awake()
     {
         container.SetActive(false);
     }
-
-    private void Update()
-    {
-        
-    }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,7 +29,6 @@ public class InteractIndicator : MonoBehaviour
         if (other.CompareTag("Item") && other.gameObject == currentItem?.gameObject)
         {
             ClearIndicator();
-            
         }
     }
 
