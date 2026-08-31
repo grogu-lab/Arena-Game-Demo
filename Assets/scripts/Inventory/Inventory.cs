@@ -39,8 +39,8 @@ public class Inventory : MonoBehaviour
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
 
-        allSlots.AddRange(inventorySlots);
         allSlots.AddRange(hotbarSlots);
+        allSlots.AddRange(inventorySlots);
 
         interactControl = InputSystem.actions.FindAction("Interact");
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
