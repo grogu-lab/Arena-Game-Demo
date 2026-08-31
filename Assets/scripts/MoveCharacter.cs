@@ -8,14 +8,18 @@ public class MoveCharacter : MonoBehaviour
 
     private InputAction jumpAction;
     private InputAction moveAction;
-    
+    private InputAction lookAround;
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 2f;
-    
+
     private Rigidbody rb;
     private Vector3 moveAmt;
+    private Vector3 lookAmt;
     private bool isGrounded;
+    public float mouseSensitivity = 0.14f;
+    private float yaw;
+    private float pitch;
 
     private void OnEnable()
     {
@@ -31,17 +35,24 @@ public class MoveCharacter : MonoBehaviour
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
+        lookAround = InputSystem.actions.FindAction("Look");
+
         rb = GetComponent<Rigidbody>();
+        rb.freezeRotation = true;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
         moveAmt = moveAction.ReadValue<Vector2>();
+        lookAmt = lookAround.ReadValue<Vector2>();
+        
         if (jumpAction.WasPressedThisFrame() && isGrounded)
         {
             Jump();
         }
-        
+
+        Look();
 
     }
     // procedures for movement and general mechanics
@@ -51,7 +62,13 @@ public class MoveCharacter : MonoBehaviour
     {
         Vector3 move = new Vector3(moveAmt.x, 0f, moveAmt.y);
         rb.MovePosition(rb.position + move * Time.deltaTime * moveSpeed);
+        
     }
+
+    private void LateUpdate()
+    {
+    }
+
     private void Jump()
     {
         rb.AddForceAtPosition(new Vector3(0, jumpSpeed, 0), Vector3.up, ForceMode.Impulse);
@@ -73,6 +90,16 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
+    private void Look()
+    {
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+        yaw += mouseDelta.x * mouseSensitivity;
+        pitch -= mouseDelta.y * mouseSensitivity;
+        pitch = Mathf.Clamp(pitch, 40f, -70f);
+        
+        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
+
+    }
 
     
 
