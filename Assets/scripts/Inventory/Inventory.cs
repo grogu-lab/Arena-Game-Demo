@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine.InputSystem.Interactions;
 
 public class Inventory : MonoBehaviour
 {
@@ -17,9 +18,15 @@ public class Inventory : MonoBehaviour
     private InputAction interactControl;
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
+    private InputAction dropSelectedItem;
     public Material highlightMaterial;
     private Material originalMaterial;
     public InteractIndicator indicator; 
+    private MoveCharacter dropPosition;
+
+    private int hotbarIndex = 0;
+    public float equippedOpacity = 0.9f;
+    public float normalOpacity = 0.55f;
 
 
     
@@ -28,6 +35,7 @@ public class Inventory : MonoBehaviour
     {
         controls?.FindActionMap("Player")?.Enable();
         hotbarSlotSelect.performed += SelectSlot;
+        dropSelectedItem.performed += HandleDropItem;
         
     }
 
@@ -35,6 +43,7 @@ public class Inventory : MonoBehaviour
     {
         controls?.FindActionMap("Player")?.Disable();
         hotbarSlotSelect.performed -= SelectSlot;
+        dropSelectedItem.performed -= HandleDropItem;
     }
 
     private void Awake()
@@ -48,6 +57,7 @@ public class Inventory : MonoBehaviour
         interactControl = InputSystem.actions.FindAction("Interact");
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
+        dropSelectedItem = InputSystem.actions.FindAction("Drop");
 
         container.SetActive(false);
     }
@@ -134,9 +144,39 @@ public class Inventory : MonoBehaviour
     {
         if (int.TryParse(context.control.name, out int keyNumber))
         {
-            int slotNumber = keyNumber;
+            hotbarIndex = keyNumber;
+            UpdateHotbarOpacity();
+        }
+
+    }
+
+    private void UpdateHotbarOpacity()
+    {
+        for (int i=0; i < hotbarSlots.Count; i++)
+        {
+            Image icon = hotbarSlots[i].GetComponent<Image>();
+            if (icon != null)
+            {
+                icon.color = (i == hotbarIndex)? new Color(1, 1, 1, equippedOpacity): new Color(1, 1, 1, normalOpacity);
+            }
         }
     }
+
+    private void HandleDropItem(InputAction.CallbackContext context)
+    {
+        if(!(context.interaction is TapInteraction)) return;
+        Slots equippedSlot = hotbarSlots[hotbarIndex]; 
+
+        if (!equippedSlot.HasItem()) return;
+        WeaponData weapon = equippedSlot.GetItem();
+        GameObject prefab = weapon.itemPrefab;
+
+        if (prefab == null) return;
+        GameObject droppedItem = Instantiate(prefab, dropPosition.rb.position, Quaternion.identity);
+        
+    }
+
+    
 
 
 }
