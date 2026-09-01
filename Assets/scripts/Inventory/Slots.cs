@@ -18,15 +18,17 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     private Material highlightSlot;
     private Material originalHighlight;
 
-
     private void OnEnable()
     {
         inputActions.FindActionMap("Player").Enable();
+        selectSlot.performed += SelectSlot;
+        
     }
 
     private void OnDisable()
     {
         inputActions.FindActionMap("Player").Disable();
+        selectSlot.performed -= SelectSlot;
     }
     private void Awake()
     {
@@ -34,7 +36,6 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         qtyText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
 
         selectSlot = InputSystem.actions.FindAction("Select Hotbar");
-
 
         UpdateSlot();
         
@@ -122,8 +123,10 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
         hovering = false;
     }
 
-    public void SelectSlot()
+    public void SelectSlot(InputAction.CallbackContext context)
     {
-        
+        // Automatically runs when any of the hotbar keys are pressed
+
+
     }
 }
