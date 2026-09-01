@@ -9,33 +9,15 @@ using UnityEngine.UI;
 public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public bool hovering;
-    public InputActionAsset inputActions;
-    private InputAction selectSlot;
     private WeaponData heldItem;
     private int itemQty;
     private Image iconImage;
     private TextMeshProUGUI qtyText;
-    private Material highlightSlot;
-    private Material originalHighlight;
-
-    private void OnEnable()
-    {
-        inputActions.FindActionMap("Player").Enable();
-        selectSlot.performed += SelectSlot;
-        
-    }
-
-    private void OnDisable()
-    {
-        inputActions.FindActionMap("Player").Disable();
-        selectSlot.performed -= SelectSlot;
-    }
+    
     private void Awake()
     {
         iconImage = transform.GetChild(0).GetComponent<Image>();
         qtyText = transform.GetChild(1).GetComponent<TextMeshProUGUI>();
-
-        selectSlot = InputSystem.actions.FindAction("Select Hotbar");
 
         UpdateSlot();
         
@@ -121,12 +103,5 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
     public void OnPointerExit(PointerEventData eventData)
     {
         hovering = false;
-    }
-
-    public void SelectSlot(InputAction.CallbackContext context)
-    {
-        // Automatically runs when any of the hotbar keys are pressed
-
-
     }
 }
