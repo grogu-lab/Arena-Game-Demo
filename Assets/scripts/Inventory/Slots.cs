@@ -26,7 +26,7 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     private void OnDisable()
     {
-        inputActions.FindActionMap("Player").Enable();
+        inputActions.FindActionMap("Player").Disable();
     }
     private void Awake()
     {
@@ -124,9 +124,6 @@ public class Slots : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 
     public void SelectSlot()
     {
-        switch (selectSlot.bindings)
-        {
-            
-        }
+        
     }
 }
