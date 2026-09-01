@@ -8,12 +8,11 @@ public class MoveCharacter : MonoBehaviour
 
     private InputAction jumpAction;
     private InputAction moveAction;
-    private InputAction lookAround;
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 2f;
 
-    private Rigidbody rb;
+    public Rigidbody rb;
     private Vector3 moveAmt;
     private bool isGrounded;
     public float mouseSensitivity = 0.14f;
@@ -33,7 +32,6 @@ public class MoveCharacter : MonoBehaviour
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
-        lookAround = InputSystem.actions.FindAction("Look");
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
