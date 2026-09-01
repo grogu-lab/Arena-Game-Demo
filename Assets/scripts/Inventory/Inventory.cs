@@ -16,6 +16,7 @@ public class Inventory : MonoBehaviour
     public InputActionAsset controls;
     private InputAction interactControl;
     private InputAction inventoryDisplay;
+    private InputAction hotbarSlotSelect;
     public Material highlightMaterial;
     private Material originalMaterial;
     public InteractIndicator indicator; 
@@ -26,12 +27,14 @@ public class Inventory : MonoBehaviour
     private void OnEnable()
     {
         controls?.FindActionMap("Player")?.Enable();
+        hotbarSlotSelect.performed += SelectSlot;
         
     }
 
     private void OnDisable()
     {
         controls?.FindActionMap("Player")?.Disable();
+        hotbarSlotSelect.performed -= SelectSlot;
     }
 
     private void Awake()
@@ -44,6 +47,7 @@ public class Inventory : MonoBehaviour
 
         interactControl = InputSystem.actions.FindAction("Interact");
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
+        hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
 
         container.SetActive(false);
     }
@@ -124,6 +128,14 @@ public class Inventory : MonoBehaviour
             
         }
 
+    }
+
+    private void SelectSlot(InputAction.CallbackContext context)
+    {
+        if (int.TryParse(context.control.name, out int keyNumber))
+        {
+            int slotNumber = keyNumber;
+        }
     }
 
 
