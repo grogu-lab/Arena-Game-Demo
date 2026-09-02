@@ -19,10 +19,7 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dropSelectedItem;
-    public Material highlightMaterial;
-    private Material originalMaterial;
     public InteractIndicator indicator; 
-    [SerializeField] private MoveCharacter dropPosition;
 
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
@@ -50,8 +47,6 @@ public class Inventory : MonoBehaviour
     {
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
-
-        dropPosition = GetComponent<MoveCharacter>();
 
         allSlots.AddRange(hotbarSlots);
         allSlots.AddRange(inventorySlots);
@@ -169,14 +164,14 @@ public class Inventory : MonoBehaviour
         Slots equippedSlot = hotbarSlots[hotbarIndex]; 
 
         if (!equippedSlot.HasItem()) return;
-        WeaponData weapon = equippedSlot.GetItem();
-        GameObject prefab = weapon.itemPrefab;
+        WeaponData weaponItem = equippedSlot.GetItem();
+        GameObject prefab = weaponItem.itemPrefab;
 
         if (prefab == null) return;
-        GameObject droppedItem = Instantiate(prefab, dropPosition.rb.position, Quaternion.identity);
+        GameObject droppedItem = Instantiate(prefab, Camera.main.transform.position + Camera.main.transform.forward, Quaternion.identity);
         PickupItem item = droppedItem.GetComponent<PickupItem>();
 
-        item.weapon = weapon;
+        item.weapon = weaponItem;
         item.amount = equippedSlot.GetAmount();
 
         equippedSlot.ClearSlot();
