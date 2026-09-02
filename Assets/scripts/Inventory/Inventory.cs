@@ -22,7 +22,7 @@ public class Inventory : MonoBehaviour
     public Material highlightMaterial;
     private Material originalMaterial;
     public InteractIndicator indicator; 
-    private MoveCharacter dropPosition;
+    [SerializeField] private MoveCharacter dropPosition;
 
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
@@ -51,7 +51,7 @@ public class Inventory : MonoBehaviour
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
 
-        dropPosition.GetComponent<MoveCharacter>();
+        dropPosition = GetComponent<MoveCharacter>();
 
         allSlots.AddRange(hotbarSlots);
         allSlots.AddRange(inventorySlots);
@@ -166,7 +166,6 @@ public class Inventory : MonoBehaviour
 
     private void HandleDropItem(InputAction.CallbackContext context)
     {
-        if(!(context.interaction is TapInteraction)) return;
         Slots equippedSlot = hotbarSlots[hotbarIndex]; 
 
         if (!equippedSlot.HasItem()) return;
