@@ -26,14 +26,14 @@ public class Inventory : MonoBehaviour
 
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
-    public float normalOpacity = 0.55f;
+    public float normalOpacity = 0.60392f;
 
 
     
 
     private void OnEnable()
     {
-        controls?.FindActionMap("Player")?.Enable();
+        controls.FindActionMap("Player").Enable();
         hotbarSlotSelect.performed += SelectSlot;
         dropSelectedItem.performed += HandleDropItem;
         
@@ -41,7 +41,7 @@ public class Inventory : MonoBehaviour
 
     private void OnDisable()
     {
-        controls?.FindActionMap("Player")?.Disable();
+        controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
     }
@@ -50,6 +50,8 @@ public class Inventory : MonoBehaviour
     {
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
+
+        dropPosition.GetComponent<MoveCharacter>();
 
         allSlots.AddRange(hotbarSlots);
         allSlots.AddRange(inventorySlots);
@@ -144,7 +146,7 @@ public class Inventory : MonoBehaviour
     {
         if (int.TryParse(context.control.name, out int keyNumber))
         {
-            hotbarIndex = keyNumber;
+            hotbarIndex = keyNumber - 1;
             UpdateHotbarOpacity();
         }
 
@@ -157,7 +159,7 @@ public class Inventory : MonoBehaviour
             Image icon = hotbarSlots[i].GetComponent<Image>();
             if (icon != null)
             {
-                icon.color = (i == hotbarIndex)? new Color(1, 1, 1, equippedOpacity): new Color(1, 1, 1, normalOpacity);
+                icon.color = (i == hotbarIndex)? new Color(0f, 0.1372549f, 0.6901961f, equippedOpacity): new Color(0f, 0.1372549f, 0.6901961f, normalOpacity);
             }
         }
     }
