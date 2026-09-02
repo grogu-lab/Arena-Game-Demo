@@ -141,7 +141,7 @@ public class Inventory : MonoBehaviour
     {
         if (int.TryParse(context.control.name, out int keyNumber))
         {
-            hotbarIndex = keyNumber - 1;
+            hotbarIndex = keyNumber -1;
             UpdateHotbarOpacity();
         }
 
