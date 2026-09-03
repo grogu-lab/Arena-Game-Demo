@@ -169,10 +169,9 @@ public class Inventory : MonoBehaviour
 
         if (prefab == null) return;
         GameObject droppedItem = Instantiate(prefab, Camera.main.transform.position + Camera.main.transform.forward, Quaternion.identity);
-        PickupItem item = droppedItem.GetComponent<PickupItem>();
+        InteractIndicator item = droppedItem.GetComponent<InteractIndicator>();
 
-        item.weapon = weaponItem;
-        item.amount = equippedSlot.GetAmount();
+        
 
         equippedSlot.ClearSlot();
     }
