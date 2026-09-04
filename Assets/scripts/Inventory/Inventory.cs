@@ -19,6 +19,7 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dropSelectedItem;
+    private MoveCharacter playerCharacter;
     public InteractIndicator indicator; 
 
     private int hotbarIndex = 0;
@@ -168,10 +169,12 @@ public class Inventory : MonoBehaviour
         GameObject prefab = weaponItem.itemPrefab;
 
         if (prefab == null) return;
-        GameObject droppedItem = Instantiate(prefab, Camera.main.transform.position + Camera.main.transform.forward, Quaternion.identity);
-        InteractIndicator item = droppedItem.GetComponent<InteractIndicator>();
+        GameObject droppedItem = Instantiate(prefab, Camera.main.transform.forward + Camera.main.transform.forward, Quaternion.Euler(-89.98f, 0, 0));
+        PickupItem item = droppedItem.GetComponent<PickupItem>();
 
-        
+        item.weapon = weaponItem;
+        item.amount = equippedSlot.GetAmount();
+
 
         equippedSlot.ClearSlot();
     }
