@@ -5,6 +5,7 @@ public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     public PickupItem currentItem;
+    public float itemHeight;
     
     private void Awake()
     {
@@ -19,6 +20,7 @@ public class InteractIndicator : MonoBehaviour
             if (other.TryGetComponent<PickupItem>(out var pickup))
             {
                 currentItem = pickup;
+                itemHeight = currentItem.transform.position.y;
             }
         }
     }
