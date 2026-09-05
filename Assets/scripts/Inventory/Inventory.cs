@@ -49,6 +49,8 @@ public class Inventory : MonoBehaviour
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
 
+        playerCharacter = GetComponent<MoveCharacter>();
+
         allSlots.AddRange(hotbarSlots);
         allSlots.AddRange(inventorySlots);
 
@@ -169,17 +171,13 @@ public class Inventory : MonoBehaviour
         GameObject prefab = weaponItem.itemPrefab;
 
         if (prefab == null) return;
-        GameObject droppedItem = Instantiate(prefab, Camera.main.transform.forward + Camera.main.transform.forward, Quaternion.Euler(-89.98f, 0, 0));
+        GameObject droppedItem = Instantiate(prefab, playerCharacter.rb.transform.position + playerCharacter.rb.transform.forward, Quaternion.Euler(-89.98f, 0, 0));
         PickupItem item = droppedItem.GetComponent<PickupItem>();
 
         item.weapon = weaponItem;
         item.amount = equippedSlot.GetAmount();
 
-
         equippedSlot.ClearSlot();
-    }
-
-    
-
+    }  
 
 }
