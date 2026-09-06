@@ -25,7 +25,7 @@ public class MoveCharacter : MonoBehaviour
 
     private void OnDisable()
     {
-        ActionInput?.FindActionMap("Player")?.Disable();
+        ActionInput.FindActionMap("Player").Disable();
     }
 
     private void Awake()
