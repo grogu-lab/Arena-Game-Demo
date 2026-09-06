@@ -9,6 +9,8 @@ public class Inventory : MonoBehaviour
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
     public GameObject container;
+    public GameObject playerCharacter;
+    public GameObject equippedItem;
 
     private List<Slots> inventorySlots = new List<Slots>();
     private List<Slots> hotbarSlots = new List<Slots>();
@@ -19,7 +21,6 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dropSelectedItem;
-    public GameObject playerCharacter;
     public InteractIndicator indicator; 
 
     private int hotbarIndex = 0;
@@ -59,6 +60,7 @@ public class Inventory : MonoBehaviour
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
 
         container.SetActive(false);
+        equippedItem.SetActive(false);
     }
 
 
@@ -141,11 +143,21 @@ public class Inventory : MonoBehaviour
 
     private void SelectSlot(InputAction.CallbackContext context)
     {
+        
         if (int.TryParse(context.control.name, out int keyNumber))
         {
             hotbarIndex = keyNumber -1;
             UpdateHotbarOpacity();
+
+            Slots slot = hotbarSlots[hotbarIndex];
+            if (slot.HasItem())
+            {
+                equippedItem.SetActive(true);
+            }
         }
+
+        
+        
 
     }
 
