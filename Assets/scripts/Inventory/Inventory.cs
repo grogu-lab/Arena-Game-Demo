@@ -34,8 +34,6 @@ public class Inventory : MonoBehaviour
     public float normalOpacity = 0.60392f;
 
 
-    
-
     private void OnEnable()
     {
         controls.FindActionMap("Player").Enable();
@@ -71,7 +69,6 @@ public class Inventory : MonoBehaviour
         container.SetActive(false);
     }
 
-
     private void Update()
     {
 
@@ -81,7 +78,6 @@ public class Inventory : MonoBehaviour
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
         }
-
         Pickup();
 
     }
@@ -144,9 +140,8 @@ public class Inventory : MonoBehaviour
             AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
             Destroy(indicator.currentItem.gameObject);
             indicator.ClearIndicator();
-            
-        }
 
+        }
     }
 
     private void SelectSlot(InputAction.CallbackContext context)
@@ -156,16 +151,7 @@ public class Inventory : MonoBehaviour
         {
             hotbarIndex = keyNumber -1;
             UpdateHotbarOpacity();
-
-            Slots slot = hotbarSlots[hotbarIndex];
-            if (slot.HasItem())
-            {
-                
-            }
         }
-
-        
-        
 
     }
 
