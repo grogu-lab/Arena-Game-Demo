@@ -10,18 +10,24 @@ public class Inventory : MonoBehaviour
     public GameObject hotbarObject;
     public GameObject container;
     public GameObject playerCharacter;
-    public GameObject equippedItem;
 
     private List<Slots> inventorySlots = new List<Slots>();
     private List<Slots> hotbarSlots = new List<Slots>();
     private List<Slots> allSlots = new List<Slots>();
 
+    public Image dragIcon;
+
+    public InteractIndicator indicator; 
     public InputActionAsset controls;
     private InputAction interactControl;
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dropSelectedItem;
-    public InteractIndicator indicator; 
+    private InputAction dragSlot;
+
+    private Slots draggedSlot = null;
+    private bool isDragging = false;
+    
 
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
@@ -35,6 +41,7 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Enable();
         hotbarSlotSelect.performed += SelectSlot;
         dropSelectedItem.performed += HandleDropItem;
+        dragSlot.performed += StartDrag;
         
     }
 
@@ -43,6 +50,7 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
+        dragSlot.performed -= EndDrag;
     }
 
     private void Awake()
@@ -58,9 +66,9 @@ public class Inventory : MonoBehaviour
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
+        dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
-        equippedItem.SetActive(false);
     }
 
 
@@ -143,7 +151,7 @@ public class Inventory : MonoBehaviour
 
     private void SelectSlot(InputAction.CallbackContext context)
     {
-        
+      
         if (int.TryParse(context.control.name, out int keyNumber))
         {
             hotbarIndex = keyNumber -1;
@@ -152,7 +160,7 @@ public class Inventory : MonoBehaviour
             Slots slot = hotbarSlots[hotbarIndex];
             if (slot.HasItem())
             {
-                equippedItem.SetActive(true);
+                
             }
         }
 
@@ -189,6 +197,56 @@ public class Inventory : MonoBehaviour
         item.amount = equippedSlot.GetAmount();
 
         equippedSlot.ClearSlot();
+    }
+
+    private void StartDrag(InputAction.CallbackContext context)
+    {
+        Slots hovered = GetHoveredSlot();
+        if (hovered != null && hovered.HasItem())
+        {
+            draggedSlot = hovered;
+            isDragging = true;
+            dragIcon.sprite = hovered.GetItem().icon;
+            dragIcon.color = new Color(0f, 0.1372549f, 0.6901961f, normalOpacity);
+            dragIcon.enabled = true;
+        }
     }  
 
+    private void EndDrag(InputAction.CallbackContext context)
+    {
+        Slots hovered = GetHoveredSlot();
+        if (hovered != null)
+        {
+            HandleDropSlot(draggedSlot, hovered);
+            dragIcon.enabled = false;
+            draggedSlot = null;
+            isDragging = false;
+            
+        }
+    }
+
+    private Slots GetHoveredSlot()
+    {
+        foreach(Slots s in allSlots)
+        {
+            if (s.hovering)
+            {
+                return s;
+            }
+        }
+        return null;
+    }
+
+    private void HandleDropSlot(Slots from, Slots to)
+    {
+        // has to drop the item on the floor if dragged out of the inventory
+
+        // isDragging > ClearSlot() > hovered.position = mousedrag.position
+        //hovered = false > Instantiate(prefab, playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.Identity)
+        Slots dropped = GetHoveredSlot();
+        if (isDragging)
+        {
+            dropped.ClearSlot();
+        }
+    }
 }
