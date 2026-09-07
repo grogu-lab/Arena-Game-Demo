@@ -242,11 +242,47 @@ public class Inventory : MonoBehaviour
         // has to drop the item on the floor if dragged out of the inventory
 
         // isDragging > ClearSlot() > hovered.position = mousedrag.position
-        //hovered = false > Instantiate(prefab, playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.Identity)
-        Slots dropped = GetHoveredSlot();
-        if (isDragging)
+        // hovered = false > Instantiate(prefab, playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.Identity)
+
+        if (from == to) return;
+
+        // Stack items
+        if (to.HasItem() && to.GetItem() == from)
         {
-            dropped.ClearSlot();
+
+            int max = to.GetItem().maxStackSize;
+            int space = max - to.GetAmount();
+
+            if (space > 0)
+            {
+                int move = Mathf.Min(space, from.GetAmount()); // quantity of the item you can add to a slot
+                to.SetItem(to.GetItem(), to.GetAmount() + move);
+                from.SetItem(from.GetItem(), from.GetAmount() - move);
+
+                if (from.GetAmount() <= 0)
+                {
+                    from.ClearSlot();
+                }
+                return;
+            } 
+        }
+        // Swap items
+        if(to.HasItem())
+        {
+            WeaponData tempItem = to.GetItem();
+            int tempAmount = to.GetAmount();
+
+            to.SetItem(from.GetItem(), from.GetAmount());
+            from.SetItem(tempItem, tempAmount);
+            return;
+        }
+        // Place in another (empty) slot
+
+        if (!to.HasItem())
+        {
+            to.SetItem(from.GetItem(), from.GetAmount());
+            from.ClearSlot();
+            return;
         }
     }
 }
