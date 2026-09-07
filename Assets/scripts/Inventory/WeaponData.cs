@@ -7,8 +7,5 @@ public class WeaponData : ScriptableObject
     public Sprite icon;
     public GameObject itemPrefab;
     public int maxStackSize;
-
-    
-
     
 }
