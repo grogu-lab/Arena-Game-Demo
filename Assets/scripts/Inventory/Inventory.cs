@@ -26,12 +26,14 @@ public class Inventory : MonoBehaviour
     private InputAction dragSlot;
 
     private Slots draggedSlot = null;
+    private Vector2 mousePosition;
     private bool isDragging = false;
     
 
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
     public float normalOpacity = 0.60392f;
+
 
 
     private void OnEnable()
@@ -71,7 +73,6 @@ public class Inventory : MonoBehaviour
 
     private void Update()
     {
-
         if (inventoryDisplay.WasPressedThisFrame())
         {
             container.SetActive(!container.activeInHierarchy);
@@ -79,7 +80,7 @@ public class Inventory : MonoBehaviour
             Cursor.visible = !Cursor.visible;
         }
         Pickup();
-
+        UpdateDragItemPosition();
     }
 
     public void AddItem(WeaponData weapon, int amount)
@@ -269,6 +270,15 @@ public class Inventory : MonoBehaviour
             to.SetItem(from.GetItem(), from.GetAmount());
             from.ClearSlot();
             return;
+        }
+    }
+
+    private void UpdateDragItemPosition()
+    {
+        mousePosition = dragSlot.ReadValue<Vector2>();
+        if (isDragging)
+        {
+            dragIcon.transform.position = mousePosition;
         }
     }
 }
