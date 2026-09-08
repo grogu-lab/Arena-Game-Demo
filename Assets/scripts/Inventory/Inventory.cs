@@ -40,7 +40,6 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Enable();
         hotbarSlotSelect.performed += SelectSlot;
         dropSelectedItem.performed += HandleDropItem;
-        dragSlot.performed += StartDrag;
         
     }
 
@@ -49,7 +48,6 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
-        dragSlot.performed -= StartDrag;
     }
 
     private void Awake()
@@ -65,7 +63,6 @@ public class Inventory : MonoBehaviour
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
-        dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
     }
@@ -80,6 +77,8 @@ public class Inventory : MonoBehaviour
         }
         Pickup();
         UpdateDragItemPosition();
+        StartDrag();
+        EndDrag();
     }
 
     public void AddItem(WeaponData weapon, int amount)
@@ -185,29 +184,34 @@ public class Inventory : MonoBehaviour
         equippedSlot.ClearSlot();
     }
 
-    private void StartDrag(InputAction.CallbackContext context)
+    private void StartDrag()
     {
-        Slots hovered = GetHoveredSlot();
-        if (hovered != null && hovered.HasItem())
+        if (Input.GetMouseButtonDown(0))
         {
-            draggedSlot = hovered;
-            isDragging = true;
-            dragIcon.sprite = hovered.GetItem().icon;
-            dragIcon.color = new Color(0f, 0.1372549f, 0.6901961f, normalOpacity);
-            dragIcon.enabled = true;
+            Slots hovered = GetHoveredSlot();
+            if (hovered != null && hovered.HasItem())
+            {
+                draggedSlot = hovered;
+                isDragging = true;
+                dragIcon.sprite = hovered.GetItem().icon;
+                dragIcon.color = new Color(1, 1, 1, normalOpacity);
+                dragIcon.enabled = true;
+            }
         }
     }  
 
-    private void EndDrag(InputAction.CallbackContext context)
+    private void EndDrag()
     {
-        Slots hovered = GetHoveredSlot();
-        if (hovered != null)
+        if (Input.GetMouseButtonUp(0))
         {
-            HandleDropSlot(draggedSlot, hovered);
-            dragIcon.enabled = false;
-            draggedSlot = null;
-            isDragging = false;
-            
+            Slots hovered = GetHoveredSlot();
+            if (hovered != null)
+            {
+                HandleDropSlot(draggedSlot, hovered);
+                dragIcon.enabled = false;
+                draggedSlot = null;
+                isDragging = false;
+            }
         }
     }
 
@@ -221,14 +225,12 @@ public class Inventory : MonoBehaviour
             }
         }
         return null;
+        
     }
 
     private void HandleDropSlot(Slots from, Slots to)
     {
         // has to drop the item on the floor if dragged out of the inventory
-
-        // isDragging > ClearSlot() > hovered.position = mousedrag.position
-        // hovered = false > Instantiate(prefab, playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.Identity)
 
         if (from == to) return;
 
@@ -276,6 +278,7 @@ public class Inventory : MonoBehaviour
     {
         Vector2 mousePosition = Mouse.current.position.ReadValue();
         Vector2 mouseDelta = Mouse.current.delta.ReadValue();
+
         if (isDragging)
         {
             dragIcon.transform.position = mouseDelta + mousePosition;
