@@ -74,6 +74,7 @@ public class Inventory : MonoBehaviour
             container.SetActive(!container.activeInHierarchy);
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
+            MoveCharacter.Instance.updateRotation = !MoveCharacter.Instance.updateRotation;
         }
         Pickup();
         UpdateDragItemPosition();
@@ -202,7 +203,7 @@ public class Inventory : MonoBehaviour
 
     private void EndDrag()
     {
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) && isDragging)
         {
             Slots hovered = GetHoveredSlot();
             if (hovered != null)
