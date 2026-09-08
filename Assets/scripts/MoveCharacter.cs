@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class MoveCharacter : MonoBehaviour
 {
-    public static MoveCharacter Instance;
     public InputActionAsset ActionInput;
 
     private InputAction jumpAction;
@@ -16,9 +15,6 @@ public class MoveCharacter : MonoBehaviour
     public Rigidbody rb;
     private Vector3 moveAmt;
     private bool isGrounded;
-    public float mouseSensitivity = 0.14f;
-    public bool updateRotation;
-    private float yaw;
 
     private void OnEnable()
     {
@@ -32,7 +28,6 @@ public class MoveCharacter : MonoBehaviour
 
     private void Awake()
     {
-        Instance = this;
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
 
@@ -43,15 +38,11 @@ public class MoveCharacter : MonoBehaviour
 
     private void Update()
     {
-        if (!updateRotation) return;
         moveAmt = moveAction.ReadValue<Vector2>();
         if (jumpAction.WasPressedThisFrame() && isGrounded)
         {
             Jump();
         }
-        Look();
-        
-
     }
     // procedures for movement and general mechanics
     
@@ -84,12 +75,4 @@ public class MoveCharacter : MonoBehaviour
         }
     }
 
-    private void Look()
-    {
-        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
-        yaw += mouseDelta.x * mouseSensitivity;
-        
-        transform.rotation = Quaternion.Euler(0f, yaw, 0f);
-        
-    }
 }
