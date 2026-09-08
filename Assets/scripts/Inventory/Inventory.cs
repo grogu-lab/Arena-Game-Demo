@@ -26,7 +26,6 @@ public class Inventory : MonoBehaviour
     private InputAction dragSlot;
 
     private Slots draggedSlot = null;
-    private Vector2 mousePosition;
     private bool isDragging = false;
     
 
@@ -50,7 +49,7 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
-        dragSlot.performed -= EndDrag;
+        dragSlot.performed -= StartDrag;
     }
 
     private void Awake()
@@ -275,10 +274,11 @@ public class Inventory : MonoBehaviour
 
     private void UpdateDragItemPosition()
     {
-        mousePosition = dragSlot.ReadValue<Vector2>();
+        Vector2 mousePosition = Mouse.current.position.ReadValue();
+        Vector2 mouseDelta = Mouse.current.delta.ReadValue();
         if (isDragging)
         {
-            dragIcon.transform.position = mousePosition;
+            dragIcon.transform.position = mouseDelta + mousePosition;
         }
     }
 }
