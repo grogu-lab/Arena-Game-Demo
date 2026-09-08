@@ -63,6 +63,7 @@ public class Inventory : MonoBehaviour
         inventoryDisplay = InputSystem.actions.FindAction("Display Inventory");
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
+        dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
     }
@@ -74,7 +75,7 @@ public class Inventory : MonoBehaviour
             container.SetActive(!container.activeInHierarchy);
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
-            MoveCharacter.Instance.updateRotation = !MoveCharacter.Instance.updateRotation;
+            PlayerCamera.Instance.updateRotation = !PlayerCamera.Instance.updateRotation;
         }
         Pickup();
         UpdateDragItemPosition();
@@ -187,7 +188,7 @@ public class Inventory : MonoBehaviour
 
     private void StartDrag()
     {
-        if (Input.GetMouseButtonDown(0))
+        if (dragSlot.WasPressedThisFrame())
         {
             Slots hovered = GetHoveredSlot();
             if (hovered != null && hovered.HasItem())
@@ -203,7 +204,7 @@ public class Inventory : MonoBehaviour
 
     private void EndDrag()
     {
-        if (Input.GetMouseButtonUp(0) && isDragging)
+        if (dragSlot.WasReleasedThisFrame() && isDragging)
         {
             Slots hovered = GetHoveredSlot();
             if (hovered != null)
