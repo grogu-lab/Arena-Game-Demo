@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 
 public class MoveCharacter : MonoBehaviour
 {
+    public static MoveCharacter Instance;
     public InputActionAsset ActionInput;
 
     private InputAction jumpAction;
@@ -16,6 +17,7 @@ public class MoveCharacter : MonoBehaviour
     private Vector3 moveAmt;
     private bool isGrounded;
     public float mouseSensitivity = 0.14f;
+    public bool updateRotation;
     private float yaw;
 
     private void OnEnable()
@@ -30,17 +32,18 @@ public class MoveCharacter : MonoBehaviour
 
     private void Awake()
     {
+        Instance = this;
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
     private void Update()
     {
+        if (!updateRotation) return;
         moveAmt = moveAction.ReadValue<Vector2>();
         if (jumpAction.WasPressedThisFrame() && isGrounded)
         {
