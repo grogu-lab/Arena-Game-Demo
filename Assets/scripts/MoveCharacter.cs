@@ -4,8 +4,8 @@ using UnityEngine.InputSystem;
 
 public class MoveCharacter : MonoBehaviour
 {
+    public GameObject groundSetting = null;
     public InputActionAsset ActionInput;
-
     private InputAction jumpAction;
     private InputAction moveAction;
 
@@ -59,20 +59,20 @@ public class MoveCharacter : MonoBehaviour
         rb.AddForceAtPosition(new Vector3(0, jumpSpeed, 0), Vector3.up, ForceMode.Impulse);
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnCollisionStay(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
+        foreach (ContactPoint contact in collision.contacts)
         {
-            isGrounded = true;
+            if(contact.normal.y > 0.5f)
+            {
+                isGrounded = true;
+            }
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Ground"))
-        {
-            isGrounded = false;
-        }
+        isGrounded = false;
     }
 
 }
