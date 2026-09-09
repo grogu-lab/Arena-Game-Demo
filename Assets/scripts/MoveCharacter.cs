@@ -4,7 +4,6 @@ using UnityEngine.InputSystem;
 
 public class MoveCharacter : MonoBehaviour
 {
-    public GameObject groundSetting = null;
     public InputActionAsset ActionInput;
     private InputAction jumpAction;
     private InputAction moveAction;
@@ -46,7 +45,6 @@ public class MoveCharacter : MonoBehaviour
     }
     // procedures for movement and general mechanics
     
-    
     private void FixedUpdate()
     {
         
@@ -69,7 +67,6 @@ public class MoveCharacter : MonoBehaviour
             }
         }
     }
-
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
