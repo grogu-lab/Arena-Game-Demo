@@ -75,7 +75,7 @@ public class Inventory : MonoBehaviour
             container.SetActive(!container.activeInHierarchy);
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
-            PlayerCamera.Instance.updateRotation = !PlayerCamera.Instance.updateRotation;
+            CameraControl.Instance.updateRotation = !CameraControl.Instance.updateRotation;
         }
         Pickup();
         UpdateDragItemPosition();
