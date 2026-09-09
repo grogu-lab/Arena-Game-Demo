@@ -25,6 +25,9 @@ public class Inventory : MonoBehaviour
     private InputAction dropSelectedItem;
     private InputAction dragSlot;
 
+    private GameObject handItem;
+    public Transform hand;
+
     private Slots draggedSlot = null;
     private bool isDragging = false;
     
@@ -32,6 +35,7 @@ public class Inventory : MonoBehaviour
     private int hotbarIndex = 0;
     public float equippedOpacity = 0.9f;
     public float normalOpacity = 0.60392f;
+
 
 
 
@@ -141,6 +145,7 @@ public class Inventory : MonoBehaviour
             AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
             Destroy(indicator.currentItem.gameObject);
             indicator.ClearIndicator();
+            EquipItem();
 
         }
     }
@@ -152,6 +157,7 @@ public class Inventory : MonoBehaviour
         {
             hotbarIndex = keyNumber -1;
             UpdateHotbarOpacity();
+            EquipItem();
         }
 
     }
@@ -184,6 +190,7 @@ public class Inventory : MonoBehaviour
         item.amount = equippedSlot.GetAmount();
 
         equippedSlot.ClearSlot();
+        EquipItem();
     }
 
     private void StartDrag()
@@ -285,5 +292,18 @@ public class Inventory : MonoBehaviour
         {
             dragIcon.transform.position = mouseDelta + mousePosition;
         }
+    }
+
+    private void EquipItem()
+    {
+        if(handItem != null) Destroy(handItem);
+        Slots hotbarSlot = allSlots[hotbarIndex];
+        if (!hotbarSlot.HasItem()) return;
+        WeaponData item = hotbarSlot.GetItem();
+        if (item.heldItem == null) return;
+
+        handItem = Instantiate(item.heldItem, hand);
+        handItem.transform.localPosition = Vector3.zero;
+        handItem.transform.localRotation = Quaternion.Euler(item.itemRotation);
     }
 }
