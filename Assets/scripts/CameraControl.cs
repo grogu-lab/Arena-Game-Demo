@@ -7,7 +7,8 @@ public class CameraControl : MonoBehaviour
     [Header("Sensitivity")]
     public float sensX;
     public float sensY;
-
+    
+    [Header("Transform")]
     public Transform orientation;
     public Transform modelRotation;
 
@@ -29,17 +30,15 @@ public class CameraControl : MonoBehaviour
 
     private void Update()
     {
-        if(!updateRotation) return;
-        Vector2 mouseVal = Mouse.current.delta.ReadValue();
-        
+        if (!updateRotation) return;
+        Vector2 mouseDel = Mouse.current.delta.ReadValue();
 
-        yRotation += mouseVal.x * sensX;
-        xRotation -= mouseVal.y * sensY;
-        xRotation = Mathf.Clamp(xRotation, -25f, 25f);
+        xRotation -= mouseDel.y * sensX;
+        yRotation += mouseDel.x * sensY;
+        xRotation = Mathf.Clamp(xRotation, -45f, 45f);
 
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         modelRotation.rotation = orientation.rotation;
     }
-
 }
