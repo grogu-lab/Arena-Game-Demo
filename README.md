@@ -10,5 +10,7 @@ A small work-in-progress player vs AI arena battle game.
     
   E to pick up an object  
 
-  Drag-and-drop items within the inventory using mouse-clicks (like most games do)
+  Drag-and-drop items within the inventory using mouse-clicks (like most games do)  
+
+  Keys to equip hotbar items: 1-4 on keyboard
   
