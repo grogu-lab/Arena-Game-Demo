@@ -2,9 +2,12 @@ using UnityEngine;
 
 public class HeldItemSettings : MonoBehaviour
 {
-    [SerializeField] private Vector3 itemRotation;
+    public static HeldItemSettings HeldItemInstance;
+    [SerializeField] public Vector3 itemRotation;
+    [SerializeField] public Vector3 itemHoldPosition;
+
     private void Awake()
     {
-        transform.rotation = Quaternion.Euler(itemRotation);
+        HeldItemInstance = this;
     }
 }
