@@ -304,6 +304,5 @@ public class Inventory : MonoBehaviour
 
         handItem = Instantiate(item.heldItem, hand);
         handItem.transform.localPosition = Vector3.zero;
-        handItem.transform.localRotation = Quaternion.Euler(item.itemRotation);
     }
 }
