@@ -301,8 +301,9 @@ public class Inventory : MonoBehaviour
         if (!hotbarSlot.HasItem()) return;
         WeaponData item = hotbarSlot.GetItem();
         if (item.heldItem == null) return;
-
+        
         handItem = Instantiate(item.heldItem, hand);
-        handItem.transform.localPosition = Vector3.zero;
+        handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
+        handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 }
