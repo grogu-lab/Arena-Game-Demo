@@ -9,6 +9,5 @@ public class WeaponData : ScriptableObject
     public GameObject heldItem;
     public int maxStackSize;
     public int weaponDamage;
-    [SerializeField] public Vector3 itemRotation;
     
 }
