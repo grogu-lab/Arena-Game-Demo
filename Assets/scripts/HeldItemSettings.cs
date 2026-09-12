@@ -6,6 +6,8 @@ public class HeldItemSettings : MonoBehaviour
     [SerializeField] public Vector3 itemRotation;
     [SerializeField] public Vector3 itemHoldPosition;
 
+    [SerializeField] public int damage;
+
     private void Awake()
     {
         HeldItemInstance = this;
