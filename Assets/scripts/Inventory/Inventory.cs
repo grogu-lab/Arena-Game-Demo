@@ -306,4 +306,4 @@ public class Inventory : MonoBehaviour
         handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
-}
+} 
