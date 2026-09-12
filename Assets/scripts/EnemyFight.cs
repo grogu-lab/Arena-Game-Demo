@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class EnemyFight : MonoBehaviour
 {
+    public GameObject handItem;
+    public EnemySO enemy;
     private int damage;
     private void Awake()
     {
@@ -17,7 +19,7 @@ public class EnemyFight : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Weapon"))
         {
-            
+            TakeDamage();
         }
     }
 
@@ -26,8 +28,12 @@ public class EnemyFight : MonoBehaviour
         
     }
 
-    private void DamageTaken()
+    private void TakeDamage()
     {
-        
+        HeldItemSettings weapon = handItem.GetComponent<HeldItemSettings>();
+        damage = weapon.damage; // damage variable in this file assigned the value of the damage field from HeldItemSettings
+
+        enemy.enemyHealth -= damage;
+
     }
 }
