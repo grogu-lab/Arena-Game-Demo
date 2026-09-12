@@ -8,6 +8,5 @@ public class WeaponData : ScriptableObject
     public GameObject itemPrefab;
     public GameObject heldItem;
     public int maxStackSize;
-    public int weaponDamage;
     
 }
