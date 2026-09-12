@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173771150a9a3f64eb7a31412d14f361, type: 3}
+  m_Name: stone
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  itemName: stone
+  icon: {fileID: 21300000, guid: a123ccf1bb03c014aaae37e99edf588a, type: 3}
+  itemPrefab: {fileID: 3898280828330583313, guid: 7ad6863eb0918954b88147969574546c, type: 3}
+  heldItem: {fileID: 3381578690323108334, guid: 2e6b37cdf198ddf43baa5fa5ed975e25, type: 3}
+  maxStackSize: 6
+  weaponDamage: 0

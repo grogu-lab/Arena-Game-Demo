@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 173771150a9a3f64eb7a31412d14f361, type: 3}
+  m_Name: pickaxe1
+  m_EditorClassIdentifier: Assembly-CSharp::WeaponData
+  itemName: pickaxe
+  icon: {fileID: 21300000, guid: 580d4b43487eeb245a498086b51f0688, type: 3}
+  itemPrefab: {fileID: 5801191638386654594, guid: 453192a6b3ce9ce439ebb9e0063cbe9f, type: 3}
+  heldItem: {fileID: 240865190991425256, guid: 5fbe2b7594d60cb4ca7efac04eb68c84, type: 3}
+  maxStackSize: 1
+  weaponDamage: 0
+  itemRotation: {x: -177.867, y: 0, z: 0}
