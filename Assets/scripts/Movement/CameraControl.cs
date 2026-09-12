@@ -4,6 +4,9 @@ using UnityEngine.InputSystem;
 public class CameraControl : MonoBehaviour
 {
     public static CameraControl Instance;
+    [Header("Player")]
+    public int healthBar = 50;
+
     [Header("Sensitivity")]
     public float sensX;
     public float sensY;
@@ -40,5 +43,10 @@ public class CameraControl : MonoBehaviour
         transform.rotation = Quaternion.Euler(xRotation, yRotation, 0f);
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         modelRotation.rotation = orientation.rotation;
+    }
+
+    private int DamageTaken()
+    {
+        return healthBar;
     }
 }
