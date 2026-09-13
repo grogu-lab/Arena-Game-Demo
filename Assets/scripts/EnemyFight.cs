@@ -5,6 +5,7 @@ public class EnemyFight : MonoBehaviour
     public GameObject handItem;
     public EnemySO enemy;
     private int damage;
+
     private void Awake()
     {
         
@@ -17,10 +18,12 @@ public class EnemyFight : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
 
-        if (collision.gameObject.CompareTag("Weapon"))
+        if (!collision.gameObject.CompareTag("Weapon")) return;
+        else
         {
             TakeDamage();
         }
+        
     }
 
     private void OnCollisionExit(Collision collision)
@@ -30,10 +33,20 @@ public class EnemyFight : MonoBehaviour
 
     private void TakeDamage()
     {
-        HeldItemSettings weapon = handItem.GetComponent<HeldItemSettings>();
+        if(enemy.enemyHealth <= 0) return;
+        handItem.TryGetComponent<HeldItemSettings>(out var weapon);
         damage = weapon.damage; // damage variable in this file assigned the value of the damage field from HeldItemSettings
 
-        enemy.enemyHealth -= damage;
-
+        if (damage >= enemy.enemyHealth)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            enemy.enemyHealth -= damage;
+        }
+        
+        
+        
     }
 }
