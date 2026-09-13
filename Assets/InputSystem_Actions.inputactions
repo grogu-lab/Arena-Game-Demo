@@ -340,17 +340,6 @@
                 },
                 {
                     "name": "",
-                    "id": "447bff36-ee87-47d8-8df5-5e414ab9743e",
-                    "path": "<Keyboard>/enter",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Attack",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "a981e815-f16d-4f17-ba4c-9119ddfee629",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
