@@ -4,41 +4,41 @@ public class EnemyFight : MonoBehaviour
 {
     public GameObject playerCharacter;
     public EnemySO enemy;
+
+    public int health;
+    public bool isHit;
     private int damage;
+    
 
     private void Awake()
     {
-        
-    }
-    private void Update()
-    {
-        
+        health = 50;
+        isHit = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider other)
     {
-       TakeDamage();
-    }
-
-    private void OnCollisionExit(Collision collision)
-    {
-        
-    }
-
-    private void TakeDamage()
-    {
-        if(enemy.enemyHealth <= 0) return;
-        playerCharacter.TryGetComponent<HeldItemSettings>(out var weapon);
-        if(weapon == null) return;
-        damage = weapon.damage; // damage variable in this file assigned the value of the damage field from HeldItemSettings
-
-        if (damage >= enemy.enemyHealth || enemy.enemyHealth <= 0)
+        if(health <= 0) return;
+        isHit = true;
+        if (other.CompareTag("Weapon"))
         {
-            Destroy(gameObject);
-        }
-        else
-        {
-            enemy.enemyHealth -= damage;
+            if(other.TryGetComponent<HeldItemSettings>(out var weapon))
+            {
+                damage = weapon.damage;
+                health -= damage;
+                if (health <= 0)
+                {
+                    Destroy(gameObject);
+                }
+
+            }
         }
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        isHit = false;
+    }
+
 }
+
