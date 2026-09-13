@@ -47,8 +47,7 @@ public class MoveCharacter : MonoBehaviour
     
     private void FixedUpdate()
     {
-        
-        rb.MovePosition(rb.position + (transform.forward * moveAmt.y + transform.right * moveAmt.x) * Time.deltaTime * moveSpeed);
+        rb.MovePosition(rb.position + moveAmt.y * transform.forward + moveAmt.x * moveSpeed * Time.deltaTime * transform.right);
         
     }
 
