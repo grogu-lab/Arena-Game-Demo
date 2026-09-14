@@ -14,18 +14,6 @@ public class HeldItemSettings : MonoBehaviour
     [SerializeField] public int damage = 10;
     public bool attackPressed;
 
-    private void OnEnable()
-    {
-        WeaponInputs.FindActionMap("Player").Enable();
-        attack.performed += SwingWeapon;
-    }
-
-    private void OnDisable()
-    {
-        WeaponInputs.FindActionMap("Player").Disable();
-        attack.performed -= SwingWeapon;
-    }
-
     private void Awake()
     {
         HeldItemInstance = this;
@@ -33,8 +21,4 @@ public class HeldItemSettings : MonoBehaviour
         attack = InputSystem.actions.FindAction("Attack");
     }
 
-    private void SwingWeapon(InputAction.CallbackContext context)
-    {
-        
-    }
 }
