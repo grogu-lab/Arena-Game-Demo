@@ -12,5 +12,6 @@ A small work-in-progress player vs AI arena battle game.
 
   Drag-and-drop items within the inventory using mouse-clicks (like most games do)  
 
-  Keys to equip hotbar items: 1-4 on keyboard
-  
+  Keys to equip hotbar items: 1-4 on keyboard  
+
+  left-click to attack with equipped weapon
