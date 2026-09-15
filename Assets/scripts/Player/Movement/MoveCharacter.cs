@@ -13,7 +13,7 @@ public class MoveCharacter : MonoBehaviour
     [SerializeField] private float jumpSpeed = 2f;
 
     public Rigidbody rb;
-    public Slots slotItem;
+    public GameObject heldItem;
     private Vector3 moveAmt;
     private Animation animator;
     private string currentAnimation = "";
@@ -91,7 +91,8 @@ public class MoveCharacter : MonoBehaviour
 
     private void AttackPerformed(InputAction.CallbackContext context)
     {
-        if (isGrounded && slotItem.HasItem())
+      if(heldItem.GetComponent<HeldItemSettings>() == null) return;
+      if (isGrounded)
         {
             ChangeAnimation("Attack");
         }
