@@ -145,7 +145,6 @@ public class Inventory : MonoBehaviour
             AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
             Destroy(indicator.currentItem.gameObject);
             indicator.ClearIndicator();
-            EquipItem();
 
         }
     }
