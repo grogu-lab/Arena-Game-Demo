@@ -98,7 +98,7 @@ namespace ActionService
                     ""name"": ""Move"",
                     ""type"": ""Value"",
                     ""id"": ""e052f6ce-94f3-474e-b2f9-aa911f7b4468"",
-                    ""expectedControlType"": """",
+                    ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true,
@@ -138,7 +138,7 @@ namespace ActionService
                     ""name"": ""Crouch"",
                     ""type"": ""Button"",
                     ""id"": ""d58c1a13-2789-42ab-9ce4-e6d0e05c3b36"",
-                    ""expectedControlType"": ""Button"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false,
@@ -192,6 +192,16 @@ namespace ActionService
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false,
+                    ""priority"": 0
+                },
+                {
+                    ""name"": ""Drag"",
+                    ""type"": ""Button"",
+                    ""id"": ""1612064c-94a0-40e4-b2e7-5adc35913f45"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true,
                     ""priority"": 0
                 }
             ],
@@ -418,17 +428,6 @@ namespace ActionService
                 },
                 {
                     ""name"": """",
-                    ""id"": ""447bff36-ee87-47d8-8df5-5e414ab9743e"",
-                    ""path"": ""<Keyboard>/enter"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Attack"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
                     ""id"": ""a981e815-f16d-4f17-ba4c-9119ddfee629"",
                     ""path"": ""<Keyboard>/leftShift"",
                     ""interactions"": """",
@@ -600,6 +599,17 @@ namespace ActionService
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Drop"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""85ba62e1-23b8-4c10-9b4c-406bb44da026"",
+                    ""path"": ""<Mouse>/leftButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Drag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1207,6 +1217,7 @@ namespace ActionService
             m_Player_DisplayInventory = m_Player.FindAction("Display Inventory", throwIfNotFound: true);
             m_Player_SelectHotbar = m_Player.FindAction("Select Hotbar", throwIfNotFound: true);
             m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
+            m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1310,6 +1321,7 @@ namespace ActionService
         private readonly InputAction m_Player_DisplayInventory;
         private readonly InputAction m_Player_SelectHotbar;
         private readonly InputAction m_Player_Drop;
+        private readonly InputAction m_Player_Drag;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1361,6 +1373,10 @@ namespace ActionService
             /// Provides access to the underlying input action "Player/Drop".
             /// </summary>
             public InputAction @Drop => m_Wrapper.m_Player_Drop;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Drag".
+            /// </summary>
+            public InputAction @Drag => m_Wrapper.m_Player_Drag;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1417,6 +1433,9 @@ namespace ActionService
                 @Drop.started += instance.OnDrop;
                 @Drop.performed += instance.OnDrop;
                 @Drop.canceled += instance.OnDrop;
+                @Drag.started += instance.OnDrag;
+                @Drag.performed += instance.OnDrag;
+                @Drag.canceled += instance.OnDrag;
             }
 
             /// <summary>
@@ -1458,6 +1477,9 @@ namespace ActionService
                 @Drop.started -= instance.OnDrop;
                 @Drop.performed -= instance.OnDrop;
                 @Drop.canceled -= instance.OnDrop;
+                @Drag.started -= instance.OnDrag;
+                @Drag.performed -= instance.OnDrag;
+                @Drag.canceled -= instance.OnDrag;
             }
 
             /// <summary>
@@ -1828,6 +1850,13 @@ namespace ActionService
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDrop(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Drag" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnDrag(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
