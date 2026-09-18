@@ -3,8 +3,10 @@ using UnityEngine.InputSystem;
 public class TriggerScript : MonoBehaviour
 {   
     public InputActionAsset InputActions_TriggerScript;
+    public GameObject handItem;
     private InputAction attackAction;
     private Animator mainAnimator;
+
 
     private void OnEnable()
     {
@@ -18,10 +20,15 @@ public class TriggerScript : MonoBehaviour
         attackAction.performed -= PerformAttack;
     }
 
+    private void Awake()
+    {
+        attackAction = InputSystem.actions.FindAction("Attack");
+    }
+
     private void Start()
     {
         mainAnimator = GetComponent<Animator>();
-        attackAction = InputSystem.actions.FindAction("Attack");
+        
     }
     private void Update()
     {
@@ -30,8 +37,11 @@ public class TriggerScript : MonoBehaviour
 
     private void PerformAttack(InputAction.CallbackContext context)
     {
-       if(mainAnimator == null) return;
-       mainAnimator.SetTrigger("AttackOpen");
+        handItem.TryGetComponent<HeldItemSettings>(out var weapon);
+        if (weapon == null) return;
+
+        if (mainAnimator == null) return;
+        mainAnimator.SetTrigger("AttackOpen");
     }
 
 
