@@ -7,7 +7,6 @@ public class MoveCharacter : MonoBehaviour
     public InputActionAsset ActionInput;
     private InputAction jumpAction;
     private InputAction moveAction;
-    private InputAction attackAction;
 
     [SerializeField] private float moveSpeed = 5f;
     [SerializeField] private float jumpSpeed = 2f;
@@ -15,32 +14,25 @@ public class MoveCharacter : MonoBehaviour
     public Rigidbody rb;
     public GameObject heldItem;
     private Vector3 moveAmt;
-    private Animation animator;
-    private string currentAnimation = "";
-    private bool isGrounded;
+    public bool isGrounded;
 
     private void OnEnable()
     {
         ActionInput.FindActionMap("Player").Enable();
-        attackAction.performed += AttackPerformed;
     }
 
     private void OnDisable()
     {
         ActionInput.FindActionMap("Player").Disable();
-        attackAction.performed -= AttackPerformed;
     }
 
     private void Awake()
     {
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
-        attackAction = InputSystem.actions.FindAction("Attack");
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        animator = GetComponent<Animation>();
 
     }
 
@@ -78,24 +70,6 @@ public class MoveCharacter : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
-    }
-
-    private void ChangeAnimation(string animation, float crossfade = 0.2f)
-    {
-        if (currentAnimation != animation)
-        {
-            currentAnimation = animation;
-            animator.CrossFade(currentAnimation, crossfade);
-        }
-    }
-
-    private void AttackPerformed(InputAction.CallbackContext context)
-    {
-      if(heldItem.GetComponent<HeldItemSettings>() == null) return;
-      if (isGrounded)
-        {
-            ChangeAnimation("Attack");
-        }
     }
 
 }
