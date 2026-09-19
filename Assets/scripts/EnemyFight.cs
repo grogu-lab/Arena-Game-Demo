@@ -20,7 +20,7 @@ public class EnemyFight : MonoBehaviour
     {
         if(health <= 0) return;
         isHit = true;
-        if (other.CompareTag("Weapon"))
+        if (other.CompareTag("FarRange") || other.CompareTag("CloseRange") || other.CompareTag("AllRange"))
         {
             if(other.TryGetComponent<HeldItemSettings>(out var weapon))
             {
@@ -30,7 +30,6 @@ public class EnemyFight : MonoBehaviour
                 {
                     Destroy(gameObject);
                 }
-
             }
         }
     }
