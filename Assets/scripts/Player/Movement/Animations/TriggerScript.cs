@@ -3,7 +3,6 @@ using UnityEngine.InputSystem;
 public class TriggerScript : MonoBehaviour
 {   
     public InputActionAsset InputActions_TriggerScript;
-    public GameObject handItem;
     private InputAction attackAction;
     private Animator mainAnimator;
 
@@ -37,12 +36,8 @@ public class TriggerScript : MonoBehaviour
 
     private void PerformAttack(InputAction.CallbackContext context)
     {
-        handItem.TryGetComponent<HeldItemSettings>(out var weapon);
-        if (weapon == null) return;
+        if(HeldItemSettings.HeldItemInstance == null) return;
+        mainAnimator.SetTrigger("TriOpen");
 
-        if (mainAnimator == null) return;
-        mainAnimator.SetTrigger("AttackOpen");
     }
-
-
 }
