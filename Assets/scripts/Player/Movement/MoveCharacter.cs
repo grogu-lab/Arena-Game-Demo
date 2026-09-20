@@ -12,7 +12,9 @@ public class MoveCharacter : MonoBehaviour
     [SerializeField] private float jumpSpeed = 2f;
 
     public Rigidbody rb;
-    public GameObject heldItem;
+    public GameObject arenaObject;
+    private Vector3 arenaRange;
+    private Vector3 arenaCenter;
     private Vector3 moveAmt;
     public bool isGrounded;
 
@@ -34,6 +36,8 @@ public class MoveCharacter : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
+        arenaRange = arenaObject.GetComponent<BoxCollider>().size;
+        arenaCenter = arenaObject.GetComponent<BoxCollider>().center;
     }
 
     private void Update()
@@ -43,13 +47,13 @@ public class MoveCharacter : MonoBehaviour
         {
             Jump();
         }
+        ReturnPlayer();
     }
     // procedures for movement and general mechanics
     
     private void FixedUpdate()
     {
         rb.MovePosition(rb.position + moveAmt.y * transform.forward + moveAmt.x * moveSpeed * Time.deltaTime * transform.right);
-        
     }
 
     private void Jump()
@@ -70,6 +74,14 @@ public class MoveCharacter : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
+    }
+
+    private void ReturnPlayer()
+    {
+        if (rb.transform.localPosition.x > arenaRange.x || rb.transform.localPosition.z > arenaRange.z)
+        {
+            rb.transform.position = arenaCenter;
+        }
     }
 
 }
