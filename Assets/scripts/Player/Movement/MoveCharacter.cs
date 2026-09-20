@@ -36,7 +36,7 @@ public class MoveCharacter : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
 
-        arenaRange = arenaObject.GetComponent<BoxCollider>().size;
+        arenaRange = arenaObject.GetComponent<MeshRenderer>().bounds.size;
         arenaCenter = arenaObject.GetComponent<BoxCollider>().center;
     }
 
@@ -78,7 +78,7 @@ public class MoveCharacter : MonoBehaviour
 
     private void ReturnPlayer()
     {
-        if (rb.transform.localPosition.x > arenaRange.x || rb.transform.localPosition.z > arenaRange.z)
+        if (rb.transform.position.x > arenaRange.x || rb.transform.position.z > arenaRange.z)
         {
             rb.transform.position = arenaCenter;
         }
