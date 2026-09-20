@@ -4,7 +4,7 @@ public class TriggerScript : MonoBehaviour
 {   
     public InputActionAsset InputActions_TriggerScript;
     private InputAction attackAction;
-    private Animator mainAnimator;
+    private Animator swingAnimator;
 
 
     private void OnEnable()
@@ -26,18 +26,27 @@ public class TriggerScript : MonoBehaviour
 
     private void Start()
     {
-        mainAnimator = GetComponent<Animator>();
-        
-    }
-    private void Update()
-    {
+        swingAnimator = GetComponent<Animator>();
         
     }
 
     private void PerformAttack(InputAction.CallbackContext context)
     {
         if(HeldItemSettings.HeldItemInstance == null) return;
-        mainAnimator.SetTrigger("TriOpen");
+        if (HeldItemSettings.HeldItemInstance.gameObject.CompareTag("CloseRange") || HeldItemSettings.HeldItemInstance.gameObject.CompareTag("AllRange"))
+        {
+            swingAnimator.SetTrigger("TriOpen");
+        }
+        else
+        {
+            return;
+        }
+    }
+
+    private void ThrowAttack(InputAction.CallbackContext context)
+    {
+        if(HeldItemSettings.HeldItemInstance == null || HeldItemSettings.HeldItemInstance.gameObject.CompareTag("CloseRange")) return;
 
     }
+
 }
