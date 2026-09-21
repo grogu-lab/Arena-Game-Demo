@@ -1,12 +1,13 @@
 using System.ComponentModel;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class InteractIndicator : MonoBehaviour
 {
     [SerializeField] private GameObject container;
     public PickupItem currentItem;
     public float itemHeight;
-    
+
     private void Awake()
     {
         container.SetActive(false);
