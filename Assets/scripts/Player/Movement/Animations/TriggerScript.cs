@@ -7,6 +7,7 @@ public class TriggerScript : MonoBehaviour
     private InputAction attackAction;
     private InputAction throwAction;
     private Animator swingAnimator;
+    private GameObject throwableItem;
 
 
     private void OnEnable()
@@ -51,7 +52,6 @@ public class TriggerScript : MonoBehaviour
     private void ThrowAttack(InputAction.CallbackContext context)
     {
         if(HeldItemSettings.HeldItemInstance == null || HeldItemSettings.HeldItemInstance.gameObject.CompareTag("CloseRange")) return;
-        
 
     }
 
