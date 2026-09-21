@@ -929,6 +929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 285324414}
   - component: {fileID: 285324415}
+  - component: {fileID: 285324416}
   m_Layer: 0
   m_Name: Hand
   m_TagString: Untagged
@@ -950,24 +951,42 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 78624124}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!111 &285324415
-Animation:
+  m_LocalEulerAnglesHint: {x: 57, y: 0, z: 0}
+--- !u!95 &285324415
+Animator:
+  serializedVersion: 7
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 285324413}
   m_Enabled: 1
-  serializedVersion: 4
-  m_Animation: {fileID: 7400000, guid: 013fac5d0c6c937408e44e5301aad8fc, type: 2}
-  m_Animations:
-  - {fileID: 7400000, guid: 013fac5d0c6c937408e44e5301aad8fc, type: 2}
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: a5b9df16ee9024d40bae4e68d42a877f, type: 2}
+  m_CullingMode: 0
   m_UpdateMode: 0
-  m_CullingType: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &285324416
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 285324413}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8233658b99dcfe44ad859b8e08ebeaf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TriggerScript
+  InputActions_TriggerScript: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -1679,7 +1698,6 @@ GameObject:
   - component: {fileID: 573078567}
   - component: {fileID: 573078566}
   - component: {fileID: 573078568}
-  - component: {fileID: 573078569}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -1716,10 +1734,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Character
   ActionInput: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  moveSpeed: 15
+  moveSpeed: 5
   jumpSpeed: 5
   rb: {fileID: 0}
-  heldItem: {fileID: 285324413}
+  arenaObject: {fileID: 591814275}
+  isGrounded: 0
 --- !u!54 &573078567
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1762,28 +1781,6 @@ MonoBehaviour:
   container: {fileID: 777478648}
   currentItem: {fileID: 0}
   itemHeight: 0
---- !u!95 &573078569
-Animator:
-  serializedVersion: 7
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 573078564}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: a5b9df16ee9024d40bae4e68d42a877f, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_AnimatePhysics: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &591814275 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -7029948723529949830, guid: 63cf2dfaf270ca14c8514fc3cb0e4aa9, type: 3}
