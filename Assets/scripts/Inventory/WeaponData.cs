@@ -8,5 +8,9 @@ public class WeaponData : ScriptableObject
     public GameObject itemPrefab;
     public GameObject heldItem;
     public int maxStackSize;
+    public int dealsDamage;
+    public Vector3 heldItemPosition;
+    public Vector3 heldItemRotation;
+
     
 }
