@@ -6,6 +6,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class Inventory : MonoBehaviour
 {
+    public static Inventory InstantiateInventory;
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
     public GameObject container;
@@ -70,6 +71,7 @@ public class Inventory : MonoBehaviour
         dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
+        InstantiateInventory = this;
     }
 
     private void Update()
