@@ -3,17 +3,14 @@ using UnityEngine.InputSystem;
 
 public class HeldItemSettings : MonoBehaviour
 {
-    public static HeldItemSettings HeldItemInstance;
-
-    public GameObject heldItemPrefab;
-
-    [SerializeField] public Vector3 itemRotation;
-    [SerializeField] public Vector3 itemHoldPosition;
-    [SerializeField] public int damage = 10;
+    public WeaponData handWeaponItem;
+    public int damageDealt;
 
     private void Awake()
     {
-        HeldItemInstance = this;
+        handWeaponItem = Inventory.InstantiateInventory.equipItem;
+        damageDealt = handWeaponItem.dealsDamage;
     }
+
 
 }
