@@ -27,7 +27,9 @@ public class Inventory : MonoBehaviour
     private InputAction dragSlot;
 
     private GameObject handItem;
+    private Animator mainAnimator;
     public Transform hand;
+    public WeaponData equipItem;
 
     private Slots draggedSlot = null;
     private bool isDragging = false;
@@ -299,11 +301,18 @@ public class Inventory : MonoBehaviour
         if(handItem != null) Destroy(handItem);
         Slots hotbarSlot = allSlots[hotbarIndex];
         if (!hotbarSlot.HasItem()) return;
-        WeaponData item = hotbarSlot.GetItem();
-        if (item.heldItem == null) return;
+        equipItem = hotbarSlot.GetItem();
+        if (equipItem.heldItem == null) return;
         
-        handItem = Instantiate(item.heldItem, hand);
-        handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
-        handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
+        handItem = Instantiate(equipItem.heldItem, hand);
+        handItem.transform.localPosition = equipItem.heldItemPosition;
+        handItem.transform.localRotation = Quaternion.Euler(equipItem.heldItemRotation);
     }
+
+    private void WeaponAttack()
+    {
+        
+    }
+
+    
 } 
