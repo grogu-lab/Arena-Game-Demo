@@ -203,6 +203,16 @@ namespace ActionService
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Throw"",
+                    ""type"": ""Button"",
+                    ""id"": ""409603f7-9af9-4553-afa4-e7a92bdb1e11"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -495,7 +505,7 @@ namespace ActionService
                 {
                     ""name"": """",
                     ""id"": ""6d5f7780-7795-4b9d-8546-ed978c23f5e1"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""path"": ""<Keyboard>/f"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
@@ -610,6 +620,17 @@ namespace ActionService
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Drag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c09524ef-8a7e-4f12-9886-5896f8a79c64"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Throw"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1218,6 +1239,7 @@ namespace ActionService
             m_Player_SelectHotbar = m_Player.FindAction("Select Hotbar", throwIfNotFound: true);
             m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
             m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
+            m_Player_Throw = m_Player.FindAction("Throw", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1322,6 +1344,7 @@ namespace ActionService
         private readonly InputAction m_Player_SelectHotbar;
         private readonly InputAction m_Player_Drop;
         private readonly InputAction m_Player_Drag;
+        private readonly InputAction m_Player_Throw;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1377,6 +1400,10 @@ namespace ActionService
             /// Provides access to the underlying input action "Player/Drag".
             /// </summary>
             public InputAction @Drag => m_Wrapper.m_Player_Drag;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Throw".
+            /// </summary>
+            public InputAction @Throw => m_Wrapper.m_Player_Throw;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1436,6 +1463,9 @@ namespace ActionService
                 @Drag.started += instance.OnDrag;
                 @Drag.performed += instance.OnDrag;
                 @Drag.canceled += instance.OnDrag;
+                @Throw.started += instance.OnThrow;
+                @Throw.performed += instance.OnThrow;
+                @Throw.canceled += instance.OnThrow;
             }
 
             /// <summary>
@@ -1480,6 +1510,9 @@ namespace ActionService
                 @Drag.started -= instance.OnDrag;
                 @Drag.performed -= instance.OnDrag;
                 @Drag.canceled -= instance.OnDrag;
+                @Throw.started -= instance.OnThrow;
+                @Throw.performed -= instance.OnThrow;
+                @Throw.canceled -= instance.OnThrow;
             }
 
             /// <summary>
@@ -1857,6 +1890,13 @@ namespace ActionService
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDrag(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Throw" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnThrow(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
