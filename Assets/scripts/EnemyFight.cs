@@ -24,7 +24,7 @@ public class EnemyFight : MonoBehaviour
         {
             if(other.TryGetComponent<HeldItemSettings>(out var weapon))
             {
-                damage = weapon.damage;
+                damage = weapon.damageDealt;
                 health -= damage;
                 if (health <= 0)
                 {
