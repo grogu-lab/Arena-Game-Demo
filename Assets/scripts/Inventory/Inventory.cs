@@ -23,10 +23,13 @@ public class Inventory : MonoBehaviour
     private InputAction interactControl;
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
+    private InputAction dragSlot;
+    
+    // Item actions
     private InputAction dropSelectedItem;
     private InputAction swingAttack;
-    private InputAction dragSlot;
-
+    private InputAction throwAttack;
+    
     private GameObject handItem;
     public Animator mainAnimator;
     public Transform hand;
@@ -49,6 +52,7 @@ public class Inventory : MonoBehaviour
         hotbarSlotSelect.performed += SelectSlot;
         dropSelectedItem.performed += HandleDropItem;
         swingAttack.performed += WeaponSwingAttack;
+        throwAttack.performed += WeaponThrowAttack;
         
     }
 
@@ -57,7 +61,8 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
-        swingAttack.performed += WeaponSwingAttack;
+        swingAttack.performed -= WeaponSwingAttack;
+        throwAttack.performed -= WeaponThrowAttack;
     }
 
     private void Awake()
@@ -74,7 +79,9 @@ public class Inventory : MonoBehaviour
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
         dragSlot = InputSystem.actions.FindAction("Drag");
+
         swingAttack = InputSystem.actions.FindAction("Attack");
+        throwAttack = InputSystem.actions.FindAction("Throw");
 
         container.SetActive(false);
         InstantiateInventory = this;
@@ -320,6 +327,13 @@ public class Inventory : MonoBehaviour
         {
             mainAnimator.SetTrigger("TriOpen");
         }
+    }
+    private void WeaponThrowAttack(InputAction.CallbackContext context)
+    {
+        if(handItem.GetComponent<HeldItemSettings>() == null) return;
+        if(handItem.gameObject.CompareTag("CloseRange")) return;
+        mainAnimator.SetTrigger("ThrowTrig");
+    
     }
 
     
