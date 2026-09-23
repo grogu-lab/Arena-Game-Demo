@@ -307,7 +307,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void EquipItem()
+    public void EquipItem()
     {
         if(handItem != null) Destroy(handItem);
         Slots hotbarSlot = allSlots[hotbarIndex];
@@ -316,7 +316,7 @@ public class Inventory : MonoBehaviour
         if (equipItem.heldItem == null) return;
         
         handItem = Instantiate(equipItem.heldItem, hand);
-        handItem.transform.localPosition = equipItem.heldItemPosition;
+        handItem.transform.localPosition = hand.position;
         handItem.transform.localRotation = Quaternion.Euler(equipItem.heldItemRotation);
     }
 
@@ -332,8 +332,11 @@ public class Inventory : MonoBehaviour
     {
         if(handItem.GetComponent<HeldItemSettings>() == null) return;
         if(handItem.gameObject.CompareTag("CloseRange")) return;
+        Destroy(handItem);
         mainAnimator.SetTrigger("ThrowTrig");
-    
+        Instantiate(handItem, hand);
+        
+
     }
 
     
