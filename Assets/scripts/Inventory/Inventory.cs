@@ -32,7 +32,6 @@ public class Inventory : MonoBehaviour
     
     private GameObject handItem;
     public Animator mainAnimator;
-    public Transform hand;
     public WeaponData equipItem;
 
     private Slots draggedSlot = null;
@@ -315,8 +314,8 @@ public class Inventory : MonoBehaviour
         equipItem = hotbarSlot.GetItem();
         if (equipItem.heldItem == null) return;
         
-        handItem = Instantiate(equipItem.heldItem, hand);
-        handItem.transform.localPosition = hand.position;
+        handItem = Instantiate(equipItem.heldItem, equipItem.heldItemPosition);
+        handItem.transform.localPosition = equipItem.heldItemPosition.position;
         handItem.transform.localRotation = Quaternion.Euler(equipItem.heldItemRotation);
     }
 
@@ -334,8 +333,6 @@ public class Inventory : MonoBehaviour
         if(handItem.gameObject.CompareTag("CloseRange")) return;
         Destroy(handItem);
         mainAnimator.SetTrigger("ThrowTrig");
-        Instantiate(handItem, hand);
-        
 
     }
 
