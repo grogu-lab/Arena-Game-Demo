@@ -9,7 +9,7 @@ public class WeaponData : ScriptableObject
     public GameObject heldItem;
     public int maxStackSize;
     public int dealsDamage;
-    public Vector3 heldItemPosition;
+    public Transform heldItemPosition;
     public Vector3 heldItemRotation;
 
     
