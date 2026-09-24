@@ -31,6 +31,7 @@ public class Inventory : MonoBehaviour
     private InputAction throwAttack;
     
     private GameObject handItem;
+    public Transform hand;
     public Animator mainAnimator;
     public WeaponData equipItem;
 
@@ -306,7 +307,7 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public void EquipItem()
+    private void EquipItem()
     {
         if(handItem != null) Destroy(handItem);
         Slots hotbarSlot = allSlots[hotbarIndex];
@@ -314,9 +315,9 @@ public class Inventory : MonoBehaviour
         equipItem = hotbarSlot.GetItem();
         if (equipItem.heldItem == null) return;
         
-        handItem = Instantiate(equipItem.heldItem, equipItem.heldItemPosition);
-        handItem.transform.localPosition = equipItem.heldItemPosition.position;
-        handItem.transform.localRotation = Quaternion.Euler(equipItem.heldItemRotation);
+        handItem = Instantiate(equipItem.heldItem, hand);
+        handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
+        handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 
     private void WeaponSwingAttack(InputAction.CallbackContext context)
