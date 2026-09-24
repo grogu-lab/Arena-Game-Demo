@@ -32,7 +32,6 @@ public class Inventory : MonoBehaviour
     
     private GameObject handItem;
     public Transform hand;
-    public Animator mainAnimator;
     public WeaponData equipItem;
 
     private Slots draggedSlot = null;
@@ -322,18 +321,22 @@ public class Inventory : MonoBehaviour
 
     private void WeaponSwingAttack(InputAction.CallbackContext context)
     {
+        Animator swingWeaponAnimator = handItem.GetComponent<Animator>();
         if(handItem == null) return;
         if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("CloseRange"))
         {
-            mainAnimator.SetTrigger("TriOpen");
+            swingWeaponAnimator.SetTrigger("TriOpen");
         }
     }
     private void WeaponThrowAttack(InputAction.CallbackContext context)
     {
+        Animator weaponThrowAnimator = handItem.GetComponent<Animator>();
         if(handItem.GetComponent<HeldItemSettings>() == null) return;
         if(handItem.gameObject.CompareTag("CloseRange")) return;
-        Destroy(handItem);
-        mainAnimator.SetTrigger("ThrowTrig");
+
+        Slots hotbarItem = allSlots[hotbarIndex];
+        weaponThrowAnimator.SetTrigger("ThrowTrig");
+        hotbarItem.ClearSlot();
 
     }
 
