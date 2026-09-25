@@ -31,7 +31,9 @@ public class Inventory : MonoBehaviour
     private InputAction throwAttack;
     
     private GameObject handItem;
-    public Transform hand;
+    private Animator mainAnimator;
+    public Transform handTransform;
+    public GameObject handObject;
     public WeaponData equipItem;
 
     private Slots draggedSlot = null;
@@ -81,6 +83,8 @@ public class Inventory : MonoBehaviour
 
         swingAttack = InputSystem.actions.FindAction("Attack");
         throwAttack = InputSystem.actions.FindAction("Throw");
+
+        mainAnimator = handObject.GetComponent<Animator>();
 
         container.SetActive(false);
         InstantiateInventory = this;
@@ -314,28 +318,26 @@ public class Inventory : MonoBehaviour
         equipItem = hotbarSlot.GetItem();
         if (equipItem.heldItem == null) return;
         
-        handItem = Instantiate(equipItem.heldItem, hand);
+        handItem = Instantiate(equipItem.heldItem, handTransform);
         handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 
     private void WeaponSwingAttack(InputAction.CallbackContext context)
     {
-        Animator swingWeaponAnimator = handItem.GetComponent<Animator>();
         if(handItem == null) return;
         if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("CloseRange"))
         {
-            swingWeaponAnimator.SetTrigger("TriOpen");
+            mainAnimator.SetTrigger("TriOpen");
         }
     }
     private void WeaponThrowAttack(InputAction.CallbackContext context)
     {
-        Animator weaponThrowAnimator = handItem.GetComponent<Animator>();
         if(handItem.GetComponent<HeldItemSettings>() == null) return;
         if(handItem.gameObject.CompareTag("CloseRange")) return;
 
         Slots hotbarItem = allSlots[hotbarIndex];
-        weaponThrowAnimator.SetTrigger("ThrowTrig");
+        mainAnimator.SetTrigger("ThrowTrig");
         hotbarItem.ClearSlot();
 
     }
