@@ -21,11 +21,13 @@ public class MoveCharacter : MonoBehaviour
     private void OnEnable()
     {
         ActionInput.FindActionMap("Player").Enable();
+        jumpAction.performed += Jump;
     }
 
     private void OnDisable()
     {
         ActionInput.FindActionMap("Player").Disable();
+        jumpAction.performed -= Jump;
     }
 
     private void Awake()
@@ -35,19 +37,11 @@ public class MoveCharacter : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
-
-        arenaRange = arenaObject.GetComponent<MeshRenderer>().bounds.size;
-        arenaCenter = arenaObject.GetComponent<BoxCollider>().center;
     }
 
     private void Update()
     {
         moveAmt = moveAction.ReadValue<Vector2>();
-        if (jumpAction.WasPressedThisFrame() && isGrounded)
-        {
-            Jump();
-        }
-        ReturnPlayer();
     }
     // procedures for movement and general mechanics
     
@@ -56,7 +50,7 @@ public class MoveCharacter : MonoBehaviour
         rb.MovePosition(rb.position + moveAmt.y * transform.forward + moveAmt.x * moveSpeed * Time.deltaTime * transform.right);
     }
 
-    private void Jump()
+    private void Jump(InputAction.CallbackContext context)
     {
         rb.AddForceAtPosition(new Vector3(0, jumpSpeed, 0), Vector3.up, ForceMode.Impulse);
     }
@@ -76,12 +70,5 @@ public class MoveCharacter : MonoBehaviour
         isGrounded = false;
     }
 
-    private void ReturnPlayer()
-    {
-        if (rb.transform.position.x > arenaRange.x || rb.transform.position.z > arenaRange.z)
-        {
-            rb.transform.position = arenaCenter;
-        }
-    }
 
 }
