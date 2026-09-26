@@ -13,6 +13,7 @@ public class MoveCharacter : MonoBehaviour
 
     public Rigidbody rb;
     private Vector3 moveAmt;
+    public Vector3 returnPos;
     public bool isGrounded;
 
     private void OnEnable()
@@ -34,6 +35,7 @@ public class MoveCharacter : MonoBehaviour
 
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        returnPos = rb.transform.position;
     }
 
     private void Update()
