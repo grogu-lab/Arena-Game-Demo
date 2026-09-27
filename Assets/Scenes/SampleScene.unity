@@ -1388,6 +1388,7 @@ GameObject:
   - component: {fileID: 573078567}
   - component: {fileID: 573078566}
   - component: {fileID: 573078568}
+  - component: {fileID: 573078569}
   m_Layer: 0
   m_Name: Character
   m_TagString: Player
@@ -1470,6 +1471,20 @@ MonoBehaviour:
   container: {fileID: 1853798083}
   currentItem: {fileID: 0}
   itemHeight: 0
+--- !u!114 &573078569
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573078564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09ef3a5bdaebb7243a3c2e8ae11f89db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ArenaExit
+  returnPos: {fileID: 478138671}
+  exited: 0
 --- !u!1 &715735089 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
@@ -2784,7 +2799,7 @@ GameObject:
   - component: {fileID: 1372224277}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3281,10 +3296,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1722365596}
   - component: {fileID: 1722365595}
-  - component: {fileID: 1722365597}
   m_Layer: 0
   m_Name: ArenaExit
-  m_TagString: Untagged
+  m_TagString: Respawn
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3325,20 +3339,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1722365597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1722365594}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 09ef3a5bdaebb7243a3c2e8ae11f89db, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::ArenaExit
-  returnPos: {fileID: 478138671}
-  exited: 0
 --- !u!1 &1726057247 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1264672652669545434, guid: 7cddb86539550bc4b9d8d6f8f5af1e8b, type: 3}
@@ -4287,6 +4287,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 410087041}
   - {fileID: 832575519}
+  - {fileID: 1722365596}
   - {fileID: 573078565}
   - {fileID: 4939838475695449064}
   - {fileID: 7496919512125249699}
@@ -4297,4 +4298,3 @@ SceneRoots:
   - {fileID: 1183637755}
   - {fileID: 478138671}
   - {fileID: 1372224280}
-  - {fileID: 1722365596}
