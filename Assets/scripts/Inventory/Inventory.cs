@@ -173,7 +173,7 @@ public class Inventory : MonoBehaviour
         {
             hotbarIndex = keyNumber -1;
             UpdateHotbarOpacity();
-            EquipItem();
+            HoldItem();
         }
 
     }
@@ -206,7 +206,7 @@ public class Inventory : MonoBehaviour
         item.amount = equippedSlot.GetAmount();
 
         equippedSlot.ClearSlot();
-        EquipItem();
+        HoldItem();
     }
 
     private void StartDrag()
@@ -310,12 +310,14 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void EquipItem()
+    private void HoldItem()
     {
         if(handItem != null) Destroy(handItem);
         Slots hotbarSlot = allSlots[hotbarIndex];
+
         if (!hotbarSlot.HasItem()) return;
         equipItem = hotbarSlot.GetItem();
+        
         if (equipItem.heldItem == null) return;
         
         handItem = Instantiate(equipItem.heldItem, handTransform);
@@ -334,12 +336,28 @@ public class Inventory : MonoBehaviour
     private void WeaponThrowAttack(InputAction.CallbackContext context)
     {
         if(handItem.GetComponent<HeldItemSettings>() == null) return;
-        if(handItem.gameObject.CompareTag("CloseRange")) return;
+        if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("FarRange"))
+        {
+            mainAnimator.SetTrigger("TriThrow");
+            ClearHandItem();
+        }
 
-        Slots hotbarItem = allSlots[hotbarIndex];
-        mainAnimator.SetTrigger("ThrowTrig");
-        hotbarItem.ClearSlot();
+    }
 
+    private void ClearHandItem()
+    {
+        if (handItem != null)
+        {
+            Destroy(handItem);
+            handItem = null;
+
+            Slots hotbarItem = allSlots[hotbarIndex];
+            hotbarItem.ClearSlot();
+        }
+        else
+        {
+            return;
+        }
     }
 
     
