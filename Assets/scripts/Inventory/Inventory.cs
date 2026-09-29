@@ -24,6 +24,8 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dragSlot;
+
+    public bool detected = false;
     
     // Item actions
     private InputAction dropSelectedItem;
@@ -327,7 +329,7 @@ public class Inventory : MonoBehaviour
 
     private void WeaponSwingAttack(InputAction.CallbackContext context)
     {
-        if(handItem == null) return;
+        if(handObject.GetComponent<HeldItemSettings>() == null) return;
         if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("CloseRange"))
         {
             mainAnimator.SetTrigger("TriOpen");
@@ -335,29 +337,12 @@ public class Inventory : MonoBehaviour
     }
     private void WeaponThrowAttack(InputAction.CallbackContext context)
     {
-        if(handItem.GetComponent<HeldItemSettings>() == null) return;
-        if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("FarRange"))
+        if(handItem == null) return;
+        if(handItem.activeInHierarchy && handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("FarRange"))
         {
             mainAnimator.SetTrigger("TriThrow");
-            ClearHandItem();
         }
-
-    }
-
-    private void ClearHandItem()
-    {
-        if (handItem != null)
-        {
-            Destroy(handItem);
-            handItem = null;
-
-            Slots hotbarItem = allSlots[hotbarIndex];
-            hotbarItem.ClearSlot();
-        }
-        else
-        {
-            return;
-        }
+        
     }
 
     
