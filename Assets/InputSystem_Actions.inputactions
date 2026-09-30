@@ -27,6 +27,16 @@
                     "priority": 0
                 },
                 {
+                    "name": "Throw",
+                    "type": "Button",
+                    "id": "409603f7-9af9-4553-afa4-e7a92bdb1e11",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false,
+                    "priority": 0
+                },
+                {
                     "name": "Attack",
                     "type": "Button",
                     "id": "c58a6a8f-e76a-4d21-86e7-f0acbd20886d",
@@ -114,16 +124,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true,
-                    "priority": 0
-                },
-                {
-                    "name": "Throw",
-                    "type": "Button",
-                    "id": "409603f7-9af9-4553-afa4-e7a92bdb1e11",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false,
                     "priority": 0
                 }
             ],

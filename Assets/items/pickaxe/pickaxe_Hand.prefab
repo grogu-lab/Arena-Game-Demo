@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &240865190991425256
+--- !u!1 &446713165644547893
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,63 +8,49 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 874667773145097895}
-  - component: {fileID: 1791354879351850472}
-  - component: {fileID: 2625175488494141177}
-  - component: {fileID: 2880077821177328450}
-  - component: {fileID: 1702647694380135538}
+  - component: {fileID: 978828238376712801}
+  - component: {fileID: 6514396050274987687}
+  - component: {fileID: 4617017393561999626}
+  - component: {fileID: 2132023943757818506}
+  - component: {fileID: 3344560692180543592}
+  - component: {fileID: 1875663879295427933}
   m_Layer: 0
-  m_Name: pickaxe_Hand
-  m_TagString: Item
+  m_Name: Pickaxe_Hand
+  m_TagString: CloseRange
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &874667773145097895
+--- !u!4 &978828238376712801
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240865190991425256}
+  m_GameObject: {fileID: 446713165644547893}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -2.72, y: 3.3431, z: 10.78}
-  m_LocalScale: {x: 1.0205152, y: 0.25883806, z: 0.25883806}
+  m_LocalRotation: {x: 0.000000021855694, y: 0, z: -0, w: 1}
+  m_LocalPosition: {x: 2.3678062, y: 0.40443578, z: 3.5452313}
+  m_LocalScale: {x: 9.624529, y: 9.624529, z: 167.77444}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1791354879351850472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240865190991425256}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9d03ea2cffa5c2c429adaa987383cd37, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
-  itemRotation: {x: -180, y: -80, z: 0}
-  itemHoldPosition: {x: 0, y: 1.5, z: 0}
-  damage: 0
---- !u!33 &2625175488494141177
+--- !u!33 &6514396050274987687
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240865190991425256}
-  m_Mesh: {fileID: -5495902117074765545, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
---- !u!23 &2880077821177328450
+  m_GameObject: {fileID: 446713165644547893}
+  m_Mesh: {fileID: 2534964839176971238, guid: 24d5e2b88ba8dea4e861f9767ac917bc, type: 3}
+--- !u!23 &4617017393561999626
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240865190991425256}
+  m_GameObject: {fileID: 446713165644547893}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -83,7 +69,6 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 611db38cf18b7de43930345d68743905, type: 2}
   - {fileID: 2100000, guid: 611db38cf18b7de43930345d68743905, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
@@ -108,13 +93,43 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1702647694380135538
-MeshCollider:
+--- !u!114 &2132023943757818506
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 240865190991425256}
+  m_GameObject: {fileID: 446713165644547893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8779004de305804489c9448bf55d6374, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
+  weapon: {fileID: 11400000, guid: 17e65cbc357f0e34a9209a90df9f67a3, type: 2}
+  amount: 1
+--- !u!114 &3344560692180543592
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446713165644547893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9d03ea2cffa5c2c429adaa987383cd37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HeldItemSettings
+  handWeaponItem: {fileID: 11400000, guid: 17e65cbc357f0e34a9209a90df9f67a3, type: 2}
+  damageDealt: 20
+  itemHoldPosition: {x: 0, y: 1, z: 0}
+  itemRotation: {x: 90, y: 87, z: 0}
+--- !u!65 &1875663879295427933
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446713165644547893}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -126,7 +141,6 @@ MeshCollider:
   m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -5495902117074765545, guid: cfe53c34d4216af4390bb2ab4c1637af, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.43411508, y: 0.050794363, z: 0.006061721}
+  m_Center: {x: 0.000023112252, y: -0.000000010837739, z: -0.0069691623}

@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::WeaponData
   itemName: pickaxe
   icon: {fileID: 21300000, guid: 580d4b43487eeb245a498086b51f0688, type: 3}
-  itemPrefab: {fileID: 5801191638386654594, guid: 453192a6b3ce9ce439ebb9e0063cbe9f, type: 3}
-  heldItem: {fileID: 240865190991425256, guid: 5fbe2b7594d60cb4ca7efac04eb68c84, type: 3}
+  itemPrefab: {fileID: 816637243582526760, guid: 453192a6b3ce9ce439ebb9e0063cbe9f, type: 3}
+  heldItem: {fileID: 446713165644547893, guid: 5fbe2b7594d60cb4ca7efac04eb68c84, type: 3}
   maxStackSize: 1
-  weaponDamage: 0
-  itemRotation: {x: -177.867, y: 0, z: 0}
+  dealsDamage: 20
