@@ -27,9 +27,6 @@ public class Inventory : MonoBehaviour
     
     // Item actions
     private InputAction dropSelectedItem;
-    private InputAction swingAttack;
-    private InputAction throwAttack;
-    
     private GameObject handItem;
     private Animator mainAnimator;
     public Transform handTransform;
@@ -76,9 +73,6 @@ public class Inventory : MonoBehaviour
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
         dragSlot = InputSystem.actions.FindAction("Drag");
-
-        swingAttack = InputSystem.actions.FindAction("Attack");
-        throwAttack = InputSystem.actions.FindAction("Throw");
 
         mainAnimator = handObject.GetComponent<Animator>();
 
