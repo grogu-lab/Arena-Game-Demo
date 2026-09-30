@@ -24,8 +24,6 @@ public class Inventory : MonoBehaviour
     private InputAction inventoryDisplay;
     private InputAction hotbarSlotSelect;
     private InputAction dragSlot;
-
-    public bool detected = false;
     
     // Item actions
     private InputAction dropSelectedItem;
@@ -54,8 +52,6 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Enable();
         hotbarSlotSelect.performed += SelectSlot;
         dropSelectedItem.performed += HandleDropItem;
-        swingAttack.performed += WeaponSwingAttack;
-        throwAttack.performed += WeaponThrowAttack;
         
     }
 
@@ -64,8 +60,6 @@ public class Inventory : MonoBehaviour
         controls.FindActionMap("Player").Disable();
         hotbarSlotSelect.performed -= SelectSlot;
         dropSelectedItem.performed -= HandleDropItem;
-        swingAttack.performed -= WeaponSwingAttack;
-        throwAttack.performed -= WeaponThrowAttack;
     }
 
     private void Awake()
@@ -326,24 +320,5 @@ public class Inventory : MonoBehaviour
         handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
-
-    private void WeaponSwingAttack(InputAction.CallbackContext context)
-    {
-        if(handObject.GetComponent<HeldItemSettings>() == null) return;
-        if(handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("CloseRange"))
-        {
-            mainAnimator.SetTrigger("TriOpen");
-        }
-    }
-    private void WeaponThrowAttack(InputAction.CallbackContext context)
-    {
-        if(handItem == null) return;
-        if(handItem.activeInHierarchy && handItem.gameObject.CompareTag("AllRange") || handItem.gameObject.CompareTag("FarRange"))
-        {
-            mainAnimator.SetTrigger("TriThrow");
-        }
-        
-    }
-
     
 } 
