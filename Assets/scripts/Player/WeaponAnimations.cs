@@ -10,6 +10,8 @@ public class WeaponAnimations : MonoBehaviour
    private InputAction swingAttack;
    private InputAction throwAttack;
 
+   public bool flag = false;
+
    private void OnEnable()
    {
       WeaponControls.FindActionMap("Player").Enable();
@@ -32,11 +34,14 @@ public class WeaponAnimations : MonoBehaviour
 
    private void SwingWeapon(InputAction.CallbackContext context)
    {
-      
+      if(weaponAnimator == null) return;
+      if(!gameObject.GetComponentInChildren<HeldItemSettings>()) return;
+      weaponAnimator.SetTrigger("SwingTrig");
+      flag = true;
    }
 
    private void ThrowWeapon(InputAction.CallbackContext context)
    {
-      
+      if(weaponAnimator == null) return;
    }
 }
