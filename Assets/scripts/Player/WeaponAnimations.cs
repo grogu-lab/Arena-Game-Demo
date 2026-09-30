@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class WeaponAnimations : MonoBehaviour
 {
    public InputActionAsset WeaponControls;
-   [SerializeField] private Animator weaponAnimator;
+   public Animator weaponAnimator;
 
    private InputAction swingAttack;
    private InputAction throwAttack;
