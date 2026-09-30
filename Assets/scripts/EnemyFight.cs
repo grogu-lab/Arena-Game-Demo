@@ -12,7 +12,7 @@ public class EnemyFight : MonoBehaviour
 
     private void Awake()
     {
-        health = 50;
+        health = enemy.enemyHealth;
         isHit = false;
     }
 
