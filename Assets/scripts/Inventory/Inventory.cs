@@ -28,7 +28,6 @@ public class Inventory : MonoBehaviour
     // Item actions
     private InputAction dropSelectedItem;
     private GameObject handItem;
-    private Animator mainAnimator;
     public Transform handTransform;
     public GameObject handObject;
     public WeaponData equipItem;
@@ -73,8 +72,6 @@ public class Inventory : MonoBehaviour
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
         dragSlot = InputSystem.actions.FindAction("Drag");
-
-        mainAnimator = handObject.GetComponent<Animator>();
 
         container.SetActive(false);
         InstantiateInventory = this;
