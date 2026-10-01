@@ -2,17 +2,18 @@ using UnityEngine;
 
 public class EnemyFight : MonoBehaviour
 {
-    public GameObject playerCharacter;
     public EnemySO enemy;
 
     public int health;
     public bool isHit;
     private int damage;
+    private Rigidbody rbEnemy;
     
 
     private void Awake()
     {
         health = enemy.enemyHealth;
+        rbEnemy = GetComponent<Rigidbody>();
         isHit = false;
     }
 
@@ -26,6 +27,7 @@ public class EnemyFight : MonoBehaviour
             {
                 damage = weapon.damageDealt;
                 health -= damage;
+                rbEnemy.AddForce(-transform.forward * 2f, ForceMode.Impulse);
                 if (health <= 0)
                 {
                     Destroy(gameObject);
