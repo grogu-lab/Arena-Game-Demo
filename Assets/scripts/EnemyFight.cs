@@ -27,7 +27,9 @@ public class EnemyFight : MonoBehaviour
             {
                 damage = weapon.damageDealt;
                 health -= damage;
-                rbEnemy.AddForce((-transform.forward * 700f) + (Vector3.up * 20f), ForceMode.Impulse);
+                rbEnemy.AddForceAtPosition(-transform.forward * 100f, Vector3.up,ForceMode.Impulse);
+
+                other.GetComponentInParent<MoveCharacter>().rb.AddForceAtPosition(new Vector3(0f, 10f, 0f), Vector3.up, ForceMode.Impulse);
                 if(health <= 0)
                 {
                     Destroy(gameObject);
