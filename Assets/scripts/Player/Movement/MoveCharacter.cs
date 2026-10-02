@@ -1,9 +1,12 @@
+using System.IO;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 
 public class MoveCharacter : MonoBehaviour
 {
+    public static MoveCharacter PlayerInstance;
     public InputActionAsset ActionInput;
     private InputAction jumpAction;
     private InputAction moveAction;
@@ -29,6 +32,7 @@ public class MoveCharacter : MonoBehaviour
 
     private void Awake()
     {
+        PlayerInstance = this;
         jumpAction = InputSystem.actions.FindAction("Jump");
         moveAction = InputSystem.actions.FindAction("Move");
 
@@ -66,6 +70,17 @@ public class MoveCharacter : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         isGrounded = false;
+    }
+
+    public class SavePlayerSettings
+    {
+        public Vector3 savePosition;
+    }
+
+    public SavePlayerSettings Save()
+    {
+        return new SavePlayerSettings{savePosition = transform.position};
+       
     }
 
 
