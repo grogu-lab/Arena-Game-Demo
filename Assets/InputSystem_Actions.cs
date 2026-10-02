@@ -213,6 +213,16 @@ namespace ActionService
                     ""interactions"": """",
                     ""initialStateCheck"": true,
                     ""priority"": 0
+                },
+                {
+                    ""name"": ""Save"",
+                    ""type"": ""Button"",
+                    ""id"": ""55e40353-d006-4c2b-a7ae-21bceee93be7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false,
+                    ""priority"": 0
                 }
             ],
             ""bindings"": [
@@ -631,6 +641,17 @@ namespace ActionService
                     ""processors"": """",
                     ""groups"": "";Keyboard&Mouse"",
                     ""action"": ""Throw"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""20a85066-3b80-4ef1-812a-818ec65d4ae8"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";Keyboard&Mouse"",
+                    ""action"": ""Save"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -1240,6 +1261,7 @@ namespace ActionService
             m_Player_SelectHotbar = m_Player.FindAction("Select Hotbar", throwIfNotFound: true);
             m_Player_Drop = m_Player.FindAction("Drop", throwIfNotFound: true);
             m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
+            m_Player_Save = m_Player.FindAction("Save", throwIfNotFound: true);
             // UI
             m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
             m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -1345,6 +1367,7 @@ namespace ActionService
         private readonly InputAction m_Player_SelectHotbar;
         private readonly InputAction m_Player_Drop;
         private readonly InputAction m_Player_Drag;
+        private readonly InputAction m_Player_Save;
         /// <summary>
         /// Provides access to input actions defined in input action map "Player".
         /// </summary>
@@ -1404,6 +1427,10 @@ namespace ActionService
             /// Provides access to the underlying input action "Player/Drag".
             /// </summary>
             public InputAction @Drag => m_Wrapper.m_Player_Drag;
+            /// <summary>
+            /// Provides access to the underlying input action "Player/Save".
+            /// </summary>
+            public InputAction @Save => m_Wrapper.m_Player_Save;
             /// <summary>
             /// Provides access to the underlying input action map instance.
             /// </summary>
@@ -1466,6 +1493,9 @@ namespace ActionService
                 @Drag.started += instance.OnDrag;
                 @Drag.performed += instance.OnDrag;
                 @Drag.canceled += instance.OnDrag;
+                @Save.started += instance.OnSave;
+                @Save.performed += instance.OnSave;
+                @Save.canceled += instance.OnSave;
             }
 
             /// <summary>
@@ -1513,6 +1543,9 @@ namespace ActionService
                 @Drag.started -= instance.OnDrag;
                 @Drag.performed -= instance.OnDrag;
                 @Drag.canceled -= instance.OnDrag;
+                @Save.started -= instance.OnSave;
+                @Save.performed -= instance.OnSave;
+                @Save.canceled -= instance.OnSave;
             }
 
             /// <summary>
@@ -1897,6 +1930,13 @@ namespace ActionService
             /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
             /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
             void OnDrag(InputAction.CallbackContext context);
+            /// <summary>
+            /// Method invoked when associated input action "Save" is either <see cref="UnityEngine.InputSystem.InputAction.started" />, <see cref="UnityEngine.InputSystem.InputAction.performed" /> or <see cref="UnityEngine.InputSystem.InputAction.canceled" />.
+            /// </summary>
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.started" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.performed" />
+            /// <seealso cref="UnityEngine.InputSystem.InputAction.canceled" />
+            void OnSave(InputAction.CallbackContext context);
         }
         /// <summary>
         /// Interface to implement callback methods for all input action callbacks associated with input actions defined by "UI" which allows adding and removing callbacks.
