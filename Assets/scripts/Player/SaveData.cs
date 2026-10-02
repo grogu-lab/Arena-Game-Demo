@@ -1,4 +1,6 @@
+using System.IO;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -6,6 +8,8 @@ public class SaveData : MonoBehaviour
 {
     public InputActionAsset saveControls;
     private InputAction saveKey;
+
+    private string savePath = Path.Combine(Application.persistentDataPath, "Saves", "PositionSave.sav");
 
     private void OnEnable()
     {
@@ -26,6 +30,8 @@ public class SaveData : MonoBehaviour
 
     private void SavePlayerData(InputAction.CallbackContext context)
     {
-        MoveCharacter.PlayerInstance.Save();
+        Directory.CreateDirectory(Path.GetDirectoryName(savePath));
+        string positionJson = JsonUtility.ToJson(MoveCharacter.PlayerInstance.Save());
+        File.WriteAllText(savePath, positionJson);
     }
 }
