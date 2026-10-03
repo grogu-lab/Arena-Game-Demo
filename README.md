@@ -15,3 +15,5 @@ A small work-in-progress player vs AI arena battle game.
   Keys to equip hotbar items: 1-4 on keyboard  
 
   left-click to attack with equipped weapon
+
+  ESC key to save your position (Temporary, will be adding more save features along the way)
