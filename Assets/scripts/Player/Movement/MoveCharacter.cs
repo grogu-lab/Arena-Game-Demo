@@ -1,4 +1,3 @@
-using System.IO;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -81,6 +80,11 @@ public class MoveCharacter : MonoBehaviour
     {
         return new SavePlayerSettings{savePosition = transform.position};
        
+    }
+
+    public void Load(SavePlayerSettings saveSetting)
+    {
+        transform.position = saveSetting.savePosition;
     }
 
 
