@@ -13,7 +13,7 @@ public class HeldItemSettings : MonoBehaviour
     private void Awake()
     {
         HeldItemInstance = this;
-        handWeaponItem = Inventory.InstantiateInventory.equipItem;
+        handWeaponItem = Inventory.InventoryInstance.equipItem;
         damageDealt = handWeaponItem.dealsDamage;
     }
 
