@@ -6,7 +6,7 @@ using UnityEngine.InputSystem.Interactions;
 
 public class Inventory : MonoBehaviour
 {
-    public static Inventory InstantiateInventory;
+    public static Inventory InventoryInstance;
     public GameObject inventorySlotParent;
     public GameObject hotbarObject;
     public GameObject container;
@@ -60,9 +60,10 @@ public class Inventory : MonoBehaviour
 
     private void Awake()
     {
+        InventoryInstance = this;
+
         inventorySlots.AddRange(inventorySlotParent.GetComponentsInChildren<Slots>());
         hotbarSlots.AddRange(hotbarObject.GetComponentsInChildren<Slots>());
-
 
         allSlots.AddRange(hotbarSlots);
         allSlots.AddRange(inventorySlots);
@@ -74,7 +75,6 @@ public class Inventory : MonoBehaviour
         dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
-        InstantiateInventory = this;
     }
 
     private void Update()
@@ -311,5 +311,22 @@ public class Inventory : MonoBehaviour
         handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
+
+    public class SaveInventorySlots
+    {
+        public List<Slots> saveSlots = new List<Slots>();
+    }
+
+    public SaveInventorySlots SlotSave()
+    {
+        return new SaveInventorySlots{saveSlots = allSlots};
+    }
+
+    private void LoadSlots(SaveInventorySlots saveSlot)
+    {
+        allSlots = saveSlot.saveSlots;
+    }
+
+
     
 } 
