@@ -8,8 +8,7 @@ public class SaveData : MonoBehaviour
 {
     public InputActionAsset saveControls;
     private InputAction saveKey;
-
-    private string savePath = Path.Combine(Application.persistentDataPath, "Saves", "PositionSave.sav");
+    private string savePath;
 
     private void OnEnable()
     {
@@ -25,13 +24,26 @@ public class SaveData : MonoBehaviour
 
     private void Awake()
     {
+        savePath = Path.Combine(Application.persistentDataPath, "Saves", "PositionSave.sav");
         saveKey = InputSystem.actions.FindAction("Save");
+        LoadPlayerData();
     }
 
     private void SavePlayerData(InputAction.CallbackContext context)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(savePath));
-        string positionJson = JsonUtility.ToJson(MoveCharacter.PlayerInstance.Save());
+        
+        MoveCharacter.SavePlayerSettings savePlayerPosition = MoveCharacter.PlayerInstance.Save();
+        string positionJson = JsonUtility.ToJson(savePlayerPosition);
         File.WriteAllText(savePath, positionJson);
+    }
+
+    private void LoadPlayerData()
+    {
+        if (!Directory.Exists(Path.GetDirectoryName(savePath))) return;
+        string json = File.ReadAllText(savePath);
+        MoveCharacter.SavePlayerSettings loadPosition = JsonUtility.FromJson<MoveCharacter.SavePlayerSettings>(json);
+        MoveCharacter.PlayerInstance.Load(loadPosition);
+
     }
 }
