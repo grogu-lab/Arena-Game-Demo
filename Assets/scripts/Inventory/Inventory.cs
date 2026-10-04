@@ -312,17 +312,12 @@ public class Inventory : MonoBehaviour
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 
-    public class SaveInventorySlots
-    {
-        public List<Slots> saveSlots = new List<Slots>();
-    }
-
     public SaveInventorySlots SlotSave()
     {
         return new SaveInventorySlots{saveSlots = allSlots};
     }
 
-    private void LoadSlots(SaveInventorySlots saveSlot)
+    public void LoadSlots(SaveInventorySlots saveSlot)
     {
         allSlots = saveSlot.saveSlots;
     }
