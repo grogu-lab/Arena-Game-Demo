@@ -16,4 +16,4 @@ A small work-in-progress player vs AI arena battle game.
 
   left-click to attack with equipped weapon
 
-  ESC key to save your position (Temporary, will be adding more save features along the way)
+  ESC key to save your position + inventory items (Temporary, will be adding more save features along the way)
