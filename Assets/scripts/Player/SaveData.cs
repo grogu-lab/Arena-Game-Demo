@@ -5,15 +5,15 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Rendering;
+using UnityEngine.UIElements;
 
 public class SaveData : MonoBehaviour
 {
     public InputActionAsset saveControls;
     private InputAction saveKey;
-    private string savePath;
+    private string saveFile;
 
-    public Vector3 position;
-    public List<Slots> inventory;
+    public bool saved = false;
 
     private void OnEnable()
     {
@@ -29,28 +29,52 @@ public class SaveData : MonoBehaviour
 
     private void Awake()
     {
-        savePath = Path.Combine(Application.persistentDataPath, "Saves", "PositionSave.sav");
+        saveFile = Path.Combine(Application.persistentDataPath, "Saves", "GameSave.sav");
         saveKey = InputSystem.actions.FindAction("Save");
+
         LoadGame();
     }
     
     private void SaveGameData(InputAction.CallbackContext context)
     {
-        SaveData data = new SaveData
+        Directory.CreateDirectory(Path.GetDirectoryName(saveFile));
+        SaveVariables data = new SaveVariables
         {
-            position = MoveCharacter.PlayerInstance.Save().savePosition,
-            inventory = Inventory.InventoryInstance.SlotSave().saveSlots
+            position = MoveCharacter.PlayerInstance.SavePosition(),
+            inventory = Inventory.InventoryInstance.SlotSave()
         };
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(savePath, json);
+        string tempFile = saveFile + ".txt";
+
+        File.WriteAllText(tempFile, json);
+
+        if (File.Exists(saveFile)){
+            File.Replace(tempFile, saveFile, null);
+        }
+        else{
+            File.Move(tempFile, saveFile);
+        }
+
+        saved = true;
     }
 
     private void LoadGame()
     {
-        if (!Directory.Exists(Path.GetDirectoryName(savePath))) return;
-        string jsonPos = File.ReadAllText(savePath);
-        MoveCharacter.SavePlayerSettings loadPosition = JsonUtility.FromJson<MoveCharacter.SavePlayerSettings>(jsonPos);
-        MoveCharacter.PlayerInstance.Load(loadPosition);
+        if (!File.Exists(saveFile)) return;
+
+        string json = File.ReadAllText(saveFile);
+        SaveVariables data = JsonUtility.FromJson<SaveVariables>(json);
+
+        MoveCharacter.PlayerInstance.LoadPosition(data.position);
+        Inventory.InventoryInstance.LoadSlots(data.inventory);
 
     }
+
+    [System.Serializable]
+    public class SaveVariables
+    {
+        public SavePlayerPosition position;
+        public SaveInventorySlots inventory;
+    }
+
 }
