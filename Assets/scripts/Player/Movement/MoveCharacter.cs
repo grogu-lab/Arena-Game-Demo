@@ -71,18 +71,13 @@ public class MoveCharacter : MonoBehaviour
         isGrounded = false;
     }
 
-    public class SavePlayerSettings
+    public SavePlayerPosition SavePosition()
     {
-        public Vector3 savePosition;
-    }
-
-    public SavePlayerSettings Save()
-    {
-        return new SavePlayerSettings{savePosition = transform.position};
+        return new SavePlayerPosition{savePosition = transform.position};
        
     }
 
-    public void Load(SavePlayerSettings saveSetting)
+    public void LoadPosition(SavePlayerPosition saveSetting)
     {
         transform.position = saveSetting.savePosition;
     }
