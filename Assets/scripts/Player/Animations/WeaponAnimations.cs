@@ -1,4 +1,5 @@
 using System;
+using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -47,7 +48,21 @@ public class WeaponAnimations : MonoBehaviour
 
    private void ThrowWeapon(InputAction.CallbackContext context)
    {
-      if(weaponAnimator == null) return;
-      weaponAnimator.SetTrigger(ThrowTrigHash);
-   }
+      /* if(weaponAnimator == null) return;
+      HeldItemSettings throwable = GetComponentInChildren<HeldItemSettings>();
+      
+
+      if(throwable.CompareTag("AllRange") || throwable.CompareTag("FarRange"))
+      {
+         weaponAnimator.SetTrigger(ThrowTrigHash);  
+      }
+      else
+      {
+         return;
+      } */
+
+      Rigidbody throwable = GetComponentInChildren<Rigidbody>();
+      throwable.AddForceAtPosition(new Vector3(0f, 5f, 2f), throwable.position, ForceMode.Impulse);
+
+   } 
 }
