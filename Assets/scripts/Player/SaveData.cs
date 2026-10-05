@@ -1,11 +1,6 @@
-using System.Collections.Generic;
 using System.IO;
-using System.Security.Cryptography;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.Rendering;
-using UnityEngine.UIElements;
 
 public class SaveData : MonoBehaviour
 {
@@ -43,6 +38,7 @@ public class SaveData : MonoBehaviour
             position = MoveCharacter.PlayerInstance.SavePosition(),
             inventory = Inventory.InventoryInstance.SlotSave()
         };
+
         string json = JsonUtility.ToJson(data, true);
         string tempFile = saveFile + ".txt";
 
@@ -66,7 +62,6 @@ public class SaveData : MonoBehaviour
         SaveVariables data = JsonUtility.FromJson<SaveVariables>(json);
 
         MoveCharacter.PlayerInstance.LoadPosition(data.position);
-        Inventory.InventoryInstance.LoadSlots(data.inventory);
 
     }
 
