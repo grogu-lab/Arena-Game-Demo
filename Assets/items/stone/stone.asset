@@ -17,4 +17,4 @@ MonoBehaviour:
   itemPrefab: {fileID: 3898280828330583313, guid: 7ad6863eb0918954b88147969574546c, type: 3}
   heldItem: {fileID: 3381578690323108334, guid: 2e6b37cdf198ddf43baa5fa5ed975e25, type: 3}
   maxStackSize: 6
-  weaponDamage: 0
+  dealsDamage: 50
