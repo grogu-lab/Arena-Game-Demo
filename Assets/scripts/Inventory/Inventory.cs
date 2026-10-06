@@ -34,6 +34,7 @@ public class Inventory : MonoBehaviour
 
     private Slots draggedSlot = null;
     private bool isDragging = false;
+    public bool wasThrown = false;
     
 
     private int hotbarIndex = 0;
@@ -90,6 +91,7 @@ public class Inventory : MonoBehaviour
         UpdateDragItemPosition();
         StartDrag();
         EndDrag();
+        ClearThrownWeapon();
     }
 
     public void AddItem(WeaponData weapon, int amount)
@@ -312,6 +314,18 @@ public class Inventory : MonoBehaviour
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 
+    private void ClearThrownWeapon()
+    {
+        Slots slotToClear = hotbarSlots[hotbarIndex];
+        if (!slotToClear.HasItem()) return;
+
+        if(wasThrown == true)
+        {
+            slotToClear.ClearSlot();
+            wasThrown = false;
+        }
+    }
+
     public SaveInventorySlots SlotSave()
     {
         return new SaveInventorySlots{saveSlots = allSlots};
@@ -321,6 +335,8 @@ public class Inventory : MonoBehaviour
     {
         allSlots = saveSlot.saveSlots;
     }
+
+    
 
 
     
