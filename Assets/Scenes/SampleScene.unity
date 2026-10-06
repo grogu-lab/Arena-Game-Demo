@@ -1424,7 +1424,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WeaponAnimations
   WeaponControls: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
-  weaponAnimator: {fileID: 285324415}
   flag: 0
 --- !u!1001 &322791410
 PrefabInstance:
@@ -5895,6 +5894,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SaveData
   saveControls: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  saved: 0
 --- !u!4 &2147459199
 Transform:
   m_ObjectHideFlags: 0
@@ -6116,17 +6116,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: stone
       objectReference: {fileID: 0}
-    - target: {fileID: 3898280828330583313, guid: 7ad6863eb0918954b88147969574546c, type: 3}
-      propertyPath: m_TagString
-      value: Item
-      objectReference: {fileID: 0}
     - target: {fileID: 6677034609927397935, guid: 7ad6863eb0918954b88147969574546c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.01373
       objectReference: {fileID: 0}
     - target: {fileID: 6677034609927397935, guid: 7ad6863eb0918954b88147969574546c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.4532754
+      value: 0.46
       objectReference: {fileID: 0}
     - target: {fileID: 6677034609927397935, guid: 7ad6863eb0918954b88147969574546c, type: 3}
       propertyPath: m_LocalPosition.z
