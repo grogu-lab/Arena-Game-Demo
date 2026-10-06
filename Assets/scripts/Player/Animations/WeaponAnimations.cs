@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEditor.Callbacks;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -62,7 +63,13 @@ public class WeaponAnimations : MonoBehaviour
       } */
 
       Rigidbody throwable = GetComponentInChildren<Rigidbody>();
-      throwable.AddForceAtPosition(new Vector3(0f, 5f, 2f), throwable.position, ForceMode.Impulse);
+      if(throwable == null) return;
 
-   } 
+      throwable.constraints = RigidbodyConstraints.None;
+      throwable.AddForceAtPosition(new Vector3(0f, 5f, 2f), throwable.position, ForceMode.Impulse);
+      Inventory.InventoryInstance.wasThrown = true;
+
+      Destroy(throwable.gameObject);
+
+   }
 }
