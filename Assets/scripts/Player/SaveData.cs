@@ -36,7 +36,6 @@ public class SaveData : MonoBehaviour
         SaveVariables data = new SaveVariables
         {
             position = MoveCharacter.PlayerInstance.SavePosition(),
-            inventory = Inventory.InventoryInstance.SlotSave()
         };
 
         string json = JsonUtility.ToJson(data, true);
@@ -69,7 +68,6 @@ public class SaveData : MonoBehaviour
     public class SaveVariables
     {
         public SavePlayerPosition position;
-        public SaveInventorySlots inventory;
     }
 
 }
