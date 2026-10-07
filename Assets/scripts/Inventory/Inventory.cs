@@ -310,6 +310,12 @@ public class Inventory : MonoBehaviour
         if (equipItem.heldItem == null) return;
         
         handItem = Instantiate(equipItem.heldItem, handTransform);
+
+        if (handItem.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        {
+            rb.constraints = RigidbodyConstraints.FreezePosition;
+        }
+
         handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
         handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
@@ -326,14 +332,12 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    public SaveInventorySlots SlotSave()
+    private void SaveSlotData()
     {
-        return new SaveInventorySlots{saveSlots = allSlots};
-    }
-
-    public void LoadSlots(SaveInventorySlots saveSlot)
-    {
-        allSlots = saveSlot.saveSlots;
+        foreach(Slots slot in allSlots)
+        {
+            
+        }
     }
 
     
