@@ -1,4 +1,5 @@
 using System.IO;
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -36,11 +37,14 @@ public class SaveData : MonoBehaviour
         SaveVariables data = new SaveVariables
         {
             position = MoveCharacter.PlayerInstance.SavePosition(),
+            inventory = SaveInventory()
+
         };
 
         string json = JsonUtility.ToJson(data, true);
         string tempFile = saveFile + ".txt";
 
+        // Check if file already exists + write save data to a temp file
         File.WriteAllText(tempFile, json);
 
         if (File.Exists(saveFile)){
@@ -62,12 +66,52 @@ public class SaveData : MonoBehaviour
 
         MoveCharacter.PlayerInstance.LoadPosition(data.position);
 
+        var slots = Inventory.InventoryInstance.GetAllSlots();
+        for(int i = 0; i < slots.Count; i++)
+        {
+            if(i > data.inventory.slotsForSave.Count) break;
+
+            SlotData dataSlot = data.inventory.slotsForSave[i];
+            if (!string.IsNullOrEmpty(dataSlot.weaponID))
+            {
+                WeaponData outWeapon = ItemDatabase.Instance.GetWeapon(dataSlot.weaponID);
+                slots[i].SetItem(outWeapon, dataSlot.amount);
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+        }
+
     }
 
-    [System.Serializable]
-    public class SaveVariables
+    public SaveInventoryData SaveInventory()
     {
-        public SavePlayerPosition position;
+        SaveInventoryData data = new();
+        foreach(Slots slot in Inventory.InventoryInstance.GetAllSlots())
+        {
+            SlotData dataSlot =  new();
+            if (slot.HasItem())
+            {
+                dataSlot.weaponID = slot.GetItem().itemID;
+                dataSlot.amount = slot.GetAmount();
+            }
+            else
+            {
+                dataSlot.weaponID = "";
+                dataSlot.amount = 0;
+            }
+            data.slotsForSave.Add(dataSlot);
+        }
+        return data;
     }
 
+
+}
+
+[System.Serializable]
+public class SaveVariables
+{
+    public SavePlayerPosition position;
+    public SaveInventoryData inventory;
 }
