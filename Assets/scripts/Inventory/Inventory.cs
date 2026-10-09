@@ -76,6 +76,7 @@ public class Inventory : MonoBehaviour
         dragSlot = InputSystem.actions.FindAction("Drag");
 
         container.SetActive(false);
+
     }
 
     private void Update()
@@ -332,16 +333,9 @@ public class Inventory : MonoBehaviour
         }
     }
 
-    private void SaveSlotData()
+    public List<Slots> GetAllSlots()
     {
-        foreach(Slots slot in allSlots)
-        {
-            
-        }
+        return allSlots;
     }
-
-    
-
-
     
 } 
