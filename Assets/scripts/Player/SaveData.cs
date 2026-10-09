@@ -1,3 +1,4 @@
+using System.Data.Common;
 using System.IO;
 using NUnit.Framework.Constraints;
 using UnityEngine;
@@ -7,6 +8,7 @@ public class SaveData : MonoBehaviour
 {
     public InputActionAsset saveControls;
     private InputAction saveKey;
+    private SaveInventoryData dataInv = new();
     private string saveFile;
 
     public bool saved = false;
@@ -34,14 +36,9 @@ public class SaveData : MonoBehaviour
     private void SaveGameData(InputAction.CallbackContext context)
     {
         Directory.CreateDirectory(Path.GetDirectoryName(saveFile));
-        SaveVariables data = new SaveVariables
-        {
-            position = MoveCharacter.PlayerInstance.SavePosition(),
-            inventory = SaveInventory()
+        SaveInventory();
 
-        };
-
-        string json = JsonUtility.ToJson(data, true);
+        string json = JsonUtility.ToJson(dataInv, true);
         string tempFile = saveFile + ".txt";
 
         // Check if file already exists + write save data to a temp file
@@ -57,37 +54,18 @@ public class SaveData : MonoBehaviour
         saved = true;
     }
 
-    private void LoadGame()
+    public void LoadGame()
     {
         if (!File.Exists(saveFile)) return;
-
         string json = File.ReadAllText(saveFile);
-        SaveVariables data = JsonUtility.FromJson<SaveVariables>(json);
-
-        MoveCharacter.PlayerInstance.LoadPosition(data.position);
-
-        var slots = Inventory.InventoryInstance.GetAllSlots();
-        for(int i = 0; i < slots.Count; i++)
-        {
-            if(i > data.inventory.slotsForSave.Count) break;
-
-            SlotData dataSlot = data.inventory.slotsForSave[i];
-            if (!string.IsNullOrEmpty(dataSlot.weaponID))
-            {
-                WeaponData outWeapon = ItemDatabase.Instance.GetWeapon(dataSlot.weaponID);
-                slots[i].SetItem(outWeapon, dataSlot.amount);
-            }
-            else
-            {
-                slots[i].ClearSlot();
-            }
-        }
-
+        SaveInventoryData data = JsonUtility.FromJson<SaveInventoryData>(json);
+        LoadInventory();
+  
+        
     }
 
-    public SaveInventoryData SaveInventory()
+    public void SaveInventory()
     {
-        SaveInventoryData data = new();
         foreach(Slots slot in Inventory.InventoryInstance.GetAllSlots())
         {
             SlotData dataSlot =  new();
@@ -101,9 +79,29 @@ public class SaveData : MonoBehaviour
                 dataSlot.weaponID = "";
                 dataSlot.amount = 0;
             }
-            data.slotsForSave.Add(dataSlot);
+            dataInv.slotsForSave.Add(dataSlot);
         }
-        return data;
+    }
+
+    private void LoadInventory()
+    {
+        var slots = Inventory.InventoryInstance.GetAllSlots();
+        for(int i = 0; i < slots.Count; i++)
+        {
+            if(i >= slots.Count) break;
+            SlotData slot = dataInv.slotsForSave[i];
+
+            if (!string.IsNullOrEmpty(slot.weaponID))
+            {
+                WeaponData item = ItemDatabase.Instance.GetWeapon(slot.weaponID);
+                slots[i].SetItem(item, slot.amount);
+            }
+            else
+            {
+                slots[i].ClearSlot();
+            }
+
+        }
     }
 
 
@@ -114,4 +112,7 @@ public class SaveVariables
 {
     public SavePlayerPosition position;
     public SaveInventoryData inventory;
+
+    
+    
 }
