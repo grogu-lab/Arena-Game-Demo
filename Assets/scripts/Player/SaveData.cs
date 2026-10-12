@@ -69,7 +69,10 @@ public class SaveData : MonoBehaviour
 
     public void LoadInventory()
     {
-        if(!File.Exists(saveFile)) return;
+        if (!File.Exists(saveFile)){
+            Debug.Log("No save file exists");
+            return;
+        }
         string json = File.ReadAllText(saveFile);
         SaveInventoryData data = JsonUtility.FromJson<SaveInventoryData>(json);
 
@@ -89,7 +92,6 @@ public class SaveData : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
-        Debug.Log("Load success");
     }
 
 }
