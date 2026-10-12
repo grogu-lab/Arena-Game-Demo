@@ -8,7 +8,7 @@ public class SaveData : MonoBehaviour
 {
     public InputActionAsset saveControls;
     private InputAction saveKey;
-    private SaveInventoryData dataInv = new();
+    private InputAction testLoadKey;
     private string saveFile;
 
     public bool saved = false;
@@ -16,103 +16,81 @@ public class SaveData : MonoBehaviour
     private void OnEnable()
     {
         saveControls.FindActionMap("Player").Enable();
-        saveKey.performed += SaveGameData;
     }
 
     private void OnDisable()
     {
         saveControls.FindActionMap("Player").Disable();
-        saveKey.performed -= SaveGameData;
     }
 
     private void Awake()
     {
-        saveFile = Path.Combine(Application.persistentDataPath, "Saves", "GameSave.sav");
+        saveFile = Application.persistentDataPath + "/inventory.json";
         saveKey = InputSystem.actions.FindAction("Save");
+        testLoadKey = InputSystem.actions.FindAction("Load");
 
-        LoadGame();
     }
-    
-    private void SaveGameData(InputAction.CallbackContext context)
+    private void Update()
     {
-        Directory.CreateDirectory(Path.GetDirectoryName(saveFile));
-        SaveInventory();
-
-        string json = JsonUtility.ToJson(dataInv, true);
-        string tempFile = saveFile + ".txt";
-
-        // Check if file already exists + write save data to a temp file
-        File.WriteAllText(tempFile, json);
-
-        if (File.Exists(saveFile)){
-            File.Replace(tempFile, saveFile, null);
+        if (saveKey.WasPressedThisFrame())
+        {
+            SaveInventory();
         }
-        else{
-            File.Move(tempFile, saveFile);
+        if (testLoadKey.WasPressedThisFrame())
+        {
+            LoadInventory();
         }
-
-        saved = true;
-    }
-
-    public void LoadGame()
-    {
-        if (!File.Exists(saveFile)) return;
-        string json = File.ReadAllText(saveFile);
-        SaveInventoryData data = JsonUtility.FromJson<SaveInventoryData>(json);
-        LoadInventory();
-  
-        
     }
 
     public void SaveInventory()
     {
+        SaveInventoryData data = new();
         foreach(Slots slot in Inventory.InventoryInstance.GetAllSlots())
         {
-            SlotData dataSlot =  new();
+            SlotData slotData = new();
             if (slot.HasItem())
             {
-                dataSlot.weaponID = slot.GetItem().itemID;
-                dataSlot.amount = slot.GetAmount();
+                slotData.weaponID = slot.GetItem().itemID;
+                slotData.amount = slot.GetAmount();
             }
             else
             {
-                dataSlot.weaponID = "";
-                dataSlot.amount = 0;
+                slotData.weaponID = "";
+                slotData.amount = 0;
             }
-            dataInv.slotsForSave.Add(dataSlot);
+            data.slotsForSave.Add(slotData);
         }
+        string json = JsonUtility.ToJson(data, true);
+        File.WriteAllText(saveFile, json);
+        Debug.Log($"Saved to: {saveFile}");
+
+
     }
 
-    private void LoadInventory()
+    public void LoadInventory()
     {
+        if(!File.Exists(saveFile)) return;
+        string json = File.ReadAllText(saveFile);
+        SaveInventoryData data = JsonUtility.FromJson<SaveInventoryData>(json);
+
         var slots = Inventory.InventoryInstance.GetAllSlots();
         for(int i = 0; i < slots.Count; i++)
         {
             if(i >= slots.Count) break;
-            SlotData slot = dataInv.slotsForSave[i];
+            SlotData slotData = data.slotsForSave[i];
 
-            if (!string.IsNullOrEmpty(slot.weaponID))
+            if (!string.IsNullOrEmpty(slotData.weaponID))
             {
-                WeaponData item = ItemDatabase.Instance.GetWeapon(slot.weaponID);
-                slots[i].SetItem(item, slot.amount);
+                WeaponData weaponItem = ItemDatabase.Instance.GetWeapon(slotData.weaponID);
+                slots[i].SetItem(weaponItem, slotData.amount);
             }
             else
             {
                 slots[i].ClearSlot();
             }
-
         }
+        Debug.Log("Load success");
     }
 
-
 }
 
-[System.Serializable]
-public class SaveVariables
-{
-    public SavePlayerPosition position;
-    public SaveInventoryData inventory;
-
-    
-    
-}
