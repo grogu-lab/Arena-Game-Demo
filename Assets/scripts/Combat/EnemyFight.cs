@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class EnemyFight : MonoBehaviour
@@ -27,9 +28,12 @@ public class EnemyFight : MonoBehaviour
             {
                 damage = weapon.damageDealt;
                 health -= damage;
-                rbEnemy.AddForceAtPosition(-transform.forward * 100f, Vector3.up,ForceMode.Impulse);
-
-                other.GetComponentInParent<MoveCharacter>().rb.AddForceAtPosition(new Vector3(0f, 10f, 0f), Vector3.up, ForceMode.Impulse);
+                if (Knockback.Instance.isKnockedback)
+                {
+                    Knockback.Instance.ApplyKnockback(rbEnemy.position);
+                    other.GetComponentInParent<MoveCharacter>().rb.AddForceAtPosition(new Vector3(0f, 10f, 0f), Vector3.up, ForceMode.Impulse);
+                }
+                
                 if(health <= 0)
                 {
                     Destroy(gameObject);
