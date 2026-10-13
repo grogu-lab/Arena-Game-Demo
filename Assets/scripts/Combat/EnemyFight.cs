@@ -28,11 +28,8 @@ public class EnemyFight : MonoBehaviour
             {
                 damage = weapon.damageDealt;
                 health -= damage;
-                if (Knockback.Instance.isKnockedback)
-                {
-                    Knockback.Instance.ApplyKnockback(rbEnemy.position);
-                    other.GetComponentInParent<MoveCharacter>().rb.AddForceAtPosition(new Vector3(0f, 10f, 0f), Vector3.up, ForceMode.Impulse);
-                }
+
+                Knockback.Instance.ApplyKnockback(weapon.transform.position);
                 
                 if(health <= 0)
                 {
