@@ -189,7 +189,7 @@ public class Inventory : MonoBehaviour
         GameObject prefab = weaponItem.itemPrefab;
 
         if (prefab == null) return;
-        GameObject droppedItem = Instantiate(prefab,playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.Euler(-89.98f, 0, 0));
+        GameObject droppedItem = Instantiate(prefab,playerCharacter.transform.position + playerCharacter.transform.forward, Quaternion.identity);
         PickupItem item = droppedItem.GetComponent<PickupItem>();
 
         item.weapon = weaponItem;
@@ -312,13 +312,13 @@ public class Inventory : MonoBehaviour
         
         handItem = Instantiate(equipItem.heldItem, handTransform);
 
-        if (handItem.TryGetComponent<Rigidbody>(out Rigidbody rb))
+        handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
+        handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
+
+        if (handItem.TryGetComponent<Rigidbody>(out var rb))
         {
             rb.constraints = RigidbodyConstraints.FreezePosition;
         }
-
-        handItem.transform.localPosition = HeldItemSettings.HeldItemInstance.itemHoldPosition;
-        handItem.transform.localRotation = Quaternion.Euler(HeldItemSettings.HeldItemInstance.itemRotation);
     }
 
     private void ClearThrownWeapon()
@@ -337,5 +337,5 @@ public class Inventory : MonoBehaviour
     {
         return allSlots;
     }
-    
+
 } 
