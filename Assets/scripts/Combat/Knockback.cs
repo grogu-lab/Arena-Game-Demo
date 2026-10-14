@@ -8,7 +8,7 @@ public class Knockback : MonoBehaviour
     private Rigidbody enemyRb;
     private Coroutine routine;
 
-    [SerializeField] private float knockbackForce = 10f;
+    [SerializeField] private float knockbackForce = 50f;
     [SerializeField] private float knockbackDuration = 0.25f;
 
     public bool isKnockedback {get; private set;}
@@ -22,7 +22,7 @@ public class Knockback : MonoBehaviour
 
     public void ApplyKnockback(Vector3 startDir)
     {
-        Vector3 dir = startDir + Vector3.forward;
+        Vector3 dir = transform.position - startDir;
         dir.Normalize();
 
         if(routine != null) StopCoroutine(routine);
