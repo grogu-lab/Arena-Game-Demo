@@ -1,23 +1,24 @@
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class InteractIndicator : MonoBehaviour
 {
-    [SerializeField] private GameObject container;
+    public static InteractIndicator Instance;
+    [SerializeField] private TextMeshProUGUI promptText;
     public PickupItem currentItem;
     public float itemHeight;
 
     private void Awake()
     {
-        container.SetActive(false);
+        Instance = this;
     }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Item"))
         {   
-            container.SetActive(true);
             if (other.TryGetComponent<PickupItem>(out var pickup))
             {
                 currentItem = pickup;
@@ -37,7 +38,21 @@ public class InteractIndicator : MonoBehaviour
 
     public void ClearIndicator()
     {
-        container.SetActive(false);
         currentItem = null;
+    }
+
+    public void DisplayText(string promptMessage)
+    {
+        promptText.text = promptMessage;
+    }
+
+    private void BaseInteract()
+    {
+        
+    }
+
+    protected virtual void Interact()
+    {
+        
     }
 }
