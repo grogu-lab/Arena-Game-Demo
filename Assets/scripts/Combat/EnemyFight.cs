@@ -8,13 +8,10 @@ public class EnemyFight : MonoBehaviour
     public int health;
     public bool isHit;
     private int damage;
-    private Rigidbody rbEnemy;
     
-
     private void Awake()
     {
         health = enemy.enemyHealth;
-        rbEnemy = GetComponent<Rigidbody>();
         isHit = false;
     }
 
