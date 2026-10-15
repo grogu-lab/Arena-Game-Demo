@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1196973655245871773}
   - component: {fileID: 498495028533985086}
   - component: {fileID: 3346579552681815486}
-  - component: {fileID: 3981680998736757206}
+  - component: {fileID: 4481572547004944501}
   m_Layer: 0
   m_Name: stone
   m_TagString: Item
@@ -113,7 +113,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3981680998736757206
+--- !u!114 &4481572547004944501
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -122,8 +122,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 3898280828330583313}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8779004de305804489c9448bf55d6374, type: 3}
+  m_Script: {fileID: 11500000, guid: 4cfc7d1d33706954e82e86fe88c709b5, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
+  m_EditorClassIdentifier: Assembly-CSharp::Interactables
   weapon: {fileID: 11400000, guid: d5ca19ca686494846adef2927ee3b2bf, type: 2}
   amount: 1
+  promptText: F
