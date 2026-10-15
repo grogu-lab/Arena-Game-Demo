@@ -44,9 +44,4 @@ public class CameraControl : MonoBehaviour
         orientation.rotation = Quaternion.Euler(0f, yRotation, 0f);
         modelRotation.rotation = orientation.rotation;
     }
-
-    private int DamageTaken()
-    {
-        return healthBar;
-    }
 }
