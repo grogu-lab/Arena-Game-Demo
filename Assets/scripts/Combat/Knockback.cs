@@ -19,7 +19,6 @@ public class Knockback : MonoBehaviour
         enemyRb = GetComponent<Rigidbody>();
     }
 
-
     public void ApplyKnockback(Vector3 startDir)
     {
         Vector3 dir = transform.position - startDir;
@@ -42,6 +41,5 @@ public class Knockback : MonoBehaviour
         isKnockedback = false;
 
     }
-
 
 }
