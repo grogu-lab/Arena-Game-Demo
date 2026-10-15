@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour
 
     public Image dragIcon;
 
-    public InteractIndicator indicator; 
+    public CameraInteract indicator;
     public InputActionAsset controls;
     private InputAction interactControl;
     private InputAction inventoryDisplay;
@@ -74,6 +74,8 @@ public class Inventory : MonoBehaviour
         hotbarSlotSelect = InputSystem.actions.FindAction("Select Hotbar");
         dropSelectedItem = InputSystem.actions.FindAction("Drop");
         dragSlot = InputSystem.actions.FindAction("Drag");
+
+        indicator = CameraInteract.Instance;
 
         container.SetActive(false);
 
@@ -148,10 +150,10 @@ public class Inventory : MonoBehaviour
 
     public void Pickup()
     {
-        if (indicator.currentItem != null && interactControl.WasPressedThisFrame())
+        if (indicator.item != null && interactControl.WasPressedThisFrame())
         {
-            AddItem(indicator.currentItem.weapon, indicator.currentItem.amount);
-            Destroy(indicator.currentItem.gameObject);
+            AddItem(indicator.item.weapon, indicator.item.amount);
+            Destroy(indicator.item.gameObject);
             indicator.ClearIndicator();
         }
     }
