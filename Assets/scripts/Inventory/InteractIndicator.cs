@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 public class InteractIndicator : MonoBehaviour
 {
     public static InteractIndicator Instance;
-    [SerializeField] private TextMeshProUGUI promptText;
+    [SerializeField] private TextMeshProUGUI promptTextTM;
     public PickupItem currentItem;
     public float itemHeight;
 
@@ -15,44 +15,10 @@ public class InteractIndicator : MonoBehaviour
         Instance = this;
     }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Item"))
-        {   
-            if (other.TryGetComponent<PickupItem>(out var pickup))
-            {
-                currentItem = pickup;
-                itemHeight = currentItem.transform.position.y;
-            }
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-
-        if (other.CompareTag("Item") && other.gameObject == currentItem?.gameObject)
-        {
-            ClearIndicator();
-        }
-    }
-
-    public void ClearIndicator()
-    {
-        currentItem = null;
-    }
 
     public void DisplayText(string promptMessage)
     {
-        promptText.text = promptMessage;
+        promptTextTM.text = promptMessage;
     }
 
-    private void BaseInteract()
-    {
-        
-    }
-
-    protected virtual void Interact()
-    {
-        
-    }
 }
