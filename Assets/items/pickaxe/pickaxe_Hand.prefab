@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 978828238376712801}
   - component: {fileID: 6514396050274987687}
   - component: {fileID: 4617017393561999626}
-  - component: {fileID: 2132023943757818506}
   - component: {fileID: 3344560692180543592}
   - component: {fileID: 1875663879295427933}
+  - component: {fileID: 2895896610205225767}
   m_Layer: 0
   m_Name: Pickaxe_Hand
   m_TagString: CloseRange
@@ -93,20 +93,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &2132023943757818506
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 446713165644547893}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8779004de305804489c9448bf55d6374, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::PickupItem
-  weapon: {fileID: 11400000, guid: 17e65cbc357f0e34a9209a90df9f67a3, type: 2}
-  amount: 1
 --- !u!114 &3344560692180543592
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,3 +130,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.43411508, y: 0.050794363, z: 0.006061721}
   m_Center: {x: 0.000023112252, y: -0.000000010837739, z: -0.0069691623}
+--- !u!114 &2895896610205225767
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 446713165644547893}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4cfc7d1d33706954e82e86fe88c709b5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Interactables
+  weapon: {fileID: 11400000, guid: 17e65cbc357f0e34a9209a90df9f67a3, type: 2}
+  amount: 1
+  promptText: F
