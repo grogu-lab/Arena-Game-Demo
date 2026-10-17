@@ -23,11 +23,10 @@ public class CameraInteract : MonoBehaviour
     {
         InteractIndicator.Instance.DisplayText(string.Empty);
         Ray ray = new Ray(cam.transform.position, cam.transform.forward);
-        Debug.DrawRay(ray.origin, ray.direction * sightDist);
         RaycastHit rayInfo;
         if(Physics.Raycast(ray, out rayInfo, sightDist, mask))
         {
-            if (rayInfo.collider.GetComponent<PickupItem>() != null)
+            if(rayInfo.collider.GetComponent<PickupItem>() != null)
             {
                 InteractIndicator.Instance.DisplayText(rayInfo.collider.GetComponent<PickupItem>().promptText);
             }
