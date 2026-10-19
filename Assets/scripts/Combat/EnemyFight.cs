@@ -41,5 +41,10 @@ public class EnemyFight : MonoBehaviour
         isHit = false;
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        
+    }
+
 }
 
