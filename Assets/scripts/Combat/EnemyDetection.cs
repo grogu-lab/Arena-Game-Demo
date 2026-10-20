@@ -46,8 +46,6 @@ public class EnemyDetection : MonoBehaviour
         Vector3 player = MoveCharacter.PlayerInstance.transform.position + Vector3.up * 0.5f;
         Vector3 toPlayer = player - eye;
 
-        Debug.DrawRay(eye, toPlayer, Color.red);
-
         if(toPlayer.sqrMagnitude > detectDist * detectDist) return false;
         
         Vector3 flat = toPlayer;
