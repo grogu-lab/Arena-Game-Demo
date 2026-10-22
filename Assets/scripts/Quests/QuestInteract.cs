@@ -1,17 +1,24 @@
+using NUnit.Framework.Constraints;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class QuestInteract : MonoBehaviour
 {
-    [SerializeField] private GameObject questButton;
-    
-    public bool IsTriggered {get; private set;}
+    public static QuestInteract Instance;
+    public CanvasGroup questButton;
 
+    private void Awake()
+    {
+        Instance = this;
+        ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, false);
+    }
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            questButton.SetActive(true);
+            ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, true);
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = !Cursor.visible;
         }
     }
 
@@ -19,7 +26,9 @@ public class QuestInteract : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            questButton.SetActive(false);
+            ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, false);
+            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+            Cursor.visible = !Cursor.visible;
         }
     }
 
