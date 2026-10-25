@@ -10,6 +10,11 @@ public class ShowHideCanvasGroups : MonoBehaviour
         Instance = this;
         canvasGroup = GetComponent<CanvasGroup>();
     }
+
+    private void Start()
+    {
+        DisplayCanvasGroup(canvasGroup, false);
+    }
     public void DisplayCanvasGroup(CanvasGroup canvas, bool visible)
     {
         canvas.alpha = visible ? 1f : 0f;
