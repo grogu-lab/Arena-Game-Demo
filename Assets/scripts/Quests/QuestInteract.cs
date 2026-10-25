@@ -6,18 +6,30 @@ public class QuestInteract : MonoBehaviour
 {
     public static QuestInteract Instance;
     public CanvasGroup questButton;
-    private bool questStarted = false;
+    public CanvasGroup ongoingQuestButton;
+    public bool questStarted = false;
+
+    private ShowHideCanvasGroups displayHideCanvas;
 
     private void Awake()
     {
+        displayHideCanvas = ShowHideCanvasGroups.Instance;
         Instance = this;
-        ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, false);
+        displayHideCanvas.DisplayCanvasGroup(ongoingQuestButton, false);
+        displayHideCanvas.DisplayCanvasGroup(questButton, false);
     }
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, true);
+            if (!questStarted)
+            {
+                displayHideCanvas.DisplayCanvasGroup(questButton, true);
+            }
+            if (questStarted)
+            {
+                displayHideCanvas.DisplayCanvasGroup(ongoingQuestButton, true);
+            }
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
         }
@@ -25,17 +37,17 @@ public class QuestInteract : MonoBehaviour
 
     private void OnTriggerExit(Collider collider)
     {
-        if (collider.gameObject.CompareTag("Player"))
-        {
-            ShowHideCanvasGroups.Instance.DisplayCanvasGroup(questButton, false);
-            Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = !Cursor.visible;
-        }
+        displayHideCanvas.DisplayCanvasGroup(questButton, false);
+        displayHideCanvas.DisplayCanvasGroup(ongoingQuestButton, false);
+        Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = !Cursor.visible;
     }
 
     public void QuestStarted()
     {
         questStarted = true;
+        displayHideCanvas.DisplayCanvasGroup(questButton, false);
+        displayHideCanvas.DisplayCanvasGroup(ongoingQuestButton, true);
     }
 
 }
