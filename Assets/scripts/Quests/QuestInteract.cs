@@ -6,6 +6,7 @@ public class QuestInteract : MonoBehaviour
 {
     public static QuestInteract Instance;
     public CanvasGroup questButton;
+    private bool questStarted = false;
 
     private void Awake()
     {
@@ -30,6 +31,11 @@ public class QuestInteract : MonoBehaviour
             Cursor.lockState = Cursor.lockState == CursorLockMode.Locked ? CursorLockMode.None : CursorLockMode.Locked;
             Cursor.visible = !Cursor.visible;
         }
+    }
+
+    public void QuestStarted()
+    {
+        questStarted = true;
     }
 
 }
