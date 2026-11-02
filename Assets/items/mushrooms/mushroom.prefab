@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3834476594726964542
+--- !u!1 &4582925872799439737
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,11 +8,11 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4005106273155922144}
-  - component: {fileID: 8678722654959099784}
-  - component: {fileID: 5227309169953956535}
-  - component: {fileID: -7414118895953613339}
-  - component: {fileID: -4018839441795711197}
+  - component: {fileID: 7260799333572976063}
+  - component: {fileID: 3926057100513725956}
+  - component: {fileID: 4929881076133197551}
+  - component: {fileID: 4628830790596160121}
+  - component: {fileID: 3060390679990224434}
   m_Layer: 6
   m_Name: mushroom
   m_TagString: Item
@@ -20,36 +20,36 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4005106273155922144
+--- !u!4 &7260799333572976063
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834476594726964542}
+  m_GameObject: {fileID: 4582925872799439737}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071067}
-  m_LocalPosition: {x: -0, y: 0.33438724, z: 0}
-  m_LocalScale: {x: 100, y: 100, z: 100}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071067}
+  m_LocalPosition: {x: -18.234934, y: 0.174, z: 6.1985087}
+  m_LocalScale: {x: 100, y: 99.999985, z: 99.999985}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!33 &8678722654959099784
+--- !u!33 &3926057100513725956
 MeshFilter:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834476594726964542}
+  m_GameObject: {fileID: 4582925872799439737}
   m_Mesh: {fileID: -7588155868070637639, guid: 0d05caa7439e0f444a96b643f62101ca, type: 3}
---- !u!23 &5227309169953956535
+--- !u!23 &4929881076133197551
 MeshRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834476594726964542}
+  m_GameObject: {fileID: 4582925872799439737}
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
@@ -92,13 +92,13 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &-7414118895953613339
+--- !u!114 &4628830790596160121
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834476594726964542}
+  m_GameObject: {fileID: 4582925872799439737}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4cfc7d1d33706954e82e86fe88c709b5, type: 3}
@@ -107,13 +107,13 @@ MonoBehaviour:
   weapon: {fileID: 11400000, guid: 2b23fcc4ec3641c46b9f65fef7611094, type: 2}
   amount: 1
   promptText: F to collect
---- !u!65 &-4018839441795711197
+--- !u!65 &3060390679990224434
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3834476594726964542}
+  m_GameObject: {fileID: 4582925872799439737}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
